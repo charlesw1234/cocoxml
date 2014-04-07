@@ -1,0 +1,15 @@
+required tools:
+#dh-make
+#dpkg-dev
+
+The deb build steps:
+
+1) to make a directory 'build'.
+2) cd 'build' directory and check out the cocoxml source-code as 'cocoxml-1.0', NOTICE: the version is required.
+3) #tar cocoxml-1.0.tar.gz cocoxml-1.0
+4) #cd cocoxml-1.0; #dh_make -e kentoo.zhao@gmail.com -f ../cocoxml-1.0.tar.gz -s
+5) the 'debian' directory is built out, all the '.ex' (sample) files  in 'debian' directory can be deleted.
+6) modify file 'debian/rules' to correct 'configure','building' and 'install' scripts.
+7) modify file 'debian/control' to correct some options.
+8) #cd cocoxml-1.0; #dpkg-buildpackage
+9) then the package 'cocoxml_1.00-1_i386.deb' is out.

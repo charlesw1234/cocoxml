@@ -1,0 +1,162 @@
+SECTION license
+/*-------------------------------------------------------------------------
+ patch.atg
+ Copyright (C) 2008, Charles Wang
+ Author: Charles Wang  <charlesw123456@gmail.com>
+ License: LGPLv2
+-------------------------------------------------------------------------*/
+END.
+
+SCHEME c Patch
+
+SECTION hIncludes
+#ifndef  COCO_PATCHDATA_H
+#include "PatchData.h"
+#endif
+END.
+
+SECTION cIncludes
+END.
+
+COMPILER Patch
+
+MEMBERS
+    int subStart, subNum;
+    int addStart, addNum;
+    PatchFile_t * first, * last;
+
+CONSTRUCTOR
+    self->subNum = 0;
+    self->addNum = 0;
+    self->first = self->last = NULL;
+
+DESTRUCTOR
+    {
+        PatchFile_t * cur, * next;
+        for (cur = self->first; cur; cur = next) {
+	    next = cur->next;
+	    PatchFile_Destruct(cur);
+	}
+    }
+
+OPTIONS space
+
+TERMINALS InPiece
+
+CHARACTERS
+    digit  = "0123456789".
+    tab    = '\t'.
+    cr     = '\r'.
+    lf     = '\n'.
+    infoch = ANY - tab - cr - lf - digit.
+
+TOKENS
+    number = digit { digit }.
+    tab    = tab.
+    eol    = (cr lf) | lf.
+    infoch = infoch.
+
+PRODUCTIONS
+
+Patch                        (. PatchFile_t * newFilePatch; .) =
+  FilePatch<&newFilePatch>   (. self->first = self->last = newFilePatch; .)
+  { FilePatch<&newFilePatch> (. if (newFilePatch) {
+    			     	    if (self->last) {
+				        self->last->next = newFilePatch; self->last = newFilePatch;
+				    } else {
+				        self->first = self->last = newFilePatch;
+				    }
+				} .) }
+.
+
+FilePatch<PatchFile_t ** filepatch>
+    (. CcsPosition_t * subfname, * addfname;
+       PatchPiece_t * newPiece; .)
+ = { HeadLine } FileSubLine<&subfname> FileAddLine<&addfname>
+    (. fprintf(stderr, "Scanning: %s %s\n", subfname->text, addfname->text);
+       if (!(*filepatch = PatchFile(subfname->text, addfname->text)))
+          PatchParser_SemErrT(self, "Not enough memory");
+       CcsPosition_Destruct(subfname);
+       CcsPosition_Destruct(addfname); .)
+   Piece<&newPiece> (. PatchFile_Append(*filepatch, newPiece); .)
+ { Piece<&newPiece> (. PatchFile_Append(*filepatch, newPiece); .) }
+.
+
+HeadLine = infoch { ANY } eol.
+
+FileSubLine<CcsPosition_t ** subfname> (. CcsToken_t * beg; .) =
+  "--- "    (. PatchScanner_TokenIncRef(&self->scanner, beg = self->la); .)
+  { ANY }   (. *subfname = PatchScanner_GetPosition(&self->scanner, beg, self->la);
+    	       PatchScanner_TokenDecRef(&self->scanner, beg); .)
+  [ tab { ANY }] eol
+.
+
+FileAddLine<CcsPosition_t ** addfname> (. CcsToken_t * beg; .) =
+  "+++ "    (. PatchScanner_TokenIncRef(&self->scanner, beg = self->la); .)
+  { ANY }   (. *addfname = PatchScanner_GetPosition(&self->scanner, beg, self->la);
+    	       PatchScanner_TokenDecRef(&self->scanner, beg); .)
+  [ tab { ANY }] eol
+.
+
+Piece<PatchPiece_t ** piece> (. int subStart, subNum, addStart, addNum;
+		      	     	CcsBool_t subLastEol, addLastEol;
+				PatchLine_t * firstLine, * lastLine, * newLine;
+				subLastEol = addLastEol = TRUE;
+				firstLine = lastLine = NULL; .) =
+  PieceTitle<&subStart, &subNum, &addStart, &addNum>
+  PieceLine<&newLine, &subLastEol, &addLastEol>
+    (. if (newLine) {
+	   if (lastLine) { lastLine->next = newLine; lastLine = newLine; } else
+	   { firstLine = lastLine = newLine; }
+       } .)
+  { PieceLine<&newLine, &subLastEol, &addLastEol>
+    (. if (newLine) {
+	   if (lastLine) { lastLine->next = newLine; lastLine = newLine; } else
+	   { firstLine = lastLine = newLine; }
+       } .)
+  }
+    (. if (self->subNum != 0 || self->addNum != 0)
+           PatchParser_SemErrT(self, "Patch format corrupt.");
+       *piece = PatchPiece(subStart, subNum, addStart, addNum,
+       	      		   firstLine, subLastEol, addLastEol);
+       PatchLineList_Destruct(firstLine); .)
+.
+
+PieceTitle<int * subStart, int * subNum, int * addStart, int * addNum> =
+  "@@" ' ' { ' ' } '-' number     (. self->subStart = *subStart = atoi(self->t->val);
+       	       	       		     self->subNum = *subNum = 0; .)
+  [',' number                     (. self->subNum = *subNum = atoi(self->t->val); .)
+  ] ' ' { ' ' } '+' number        (. self->addStart = *addStart = atoi(self->t->val);
+      	      	    		     self->addNum = *addNum = 0; .)
+  [',' number                     (. self->addNum = *addNum = atoi(self->t->val); .)
+  ] ' ' { ' ' } "@@" { ANY } eol  (. PatchScanner_InsertExpect(&self->scanner, PatchScanner_InPiece,
+      	    	       	      	 			       NULL, 0, &self->la); .)
+.
+
+PieceLine<PatchLine_t ** line, CcsBool_t * subLineEol, CcsBool_t * addLineEol>
+    (. char op; CcsToken_t * beginToken; .) =
+  InPiece ('+' | '-' | ' ' | "++" | "--" | "+++" | "---" | "\\ No newline at end of file")
+    (. op = *self->t->val;
+       PatchScanner_TokenIncRef(&self->scanner, beginToken = self->t); .)
+  { ANY } eol
+    (. switch (op) {
+       case '+': --self->addNum; break;
+       case '-': --self->subNum; break;
+       case ' ': --self->addNum; --self->subNum; break;
+       case '\\':
+           if (self->subNum > 0) PatchParser_SemErrT(self, "Patch format corrupt.");
+           else  *subLineEol = TRUE;
+	   break;
+       }
+       *line = op != '\\' ? PatchLine(&self->scanner, beginToken, self->t) : NULL;
+       if (self->subNum < 0 || self->addNum < 0)
+           PatchParser_SemErrT(self, "Patch format corrupt.");
+       PatchScanner_TokenDecRef(&self->scanner, beginToken);
+       if (self->subNum > 0 || self->addNum > 0)
+           PatchScanner_InsertExpect(&self->scanner, PatchScanner_InPiece,
+				     NULL, 0, &self->la); .)
+  | "\\ No newline at end of file" { ' ' } eol
+    (. *addLineEol = TRUE; *line = NULL; .)
+.
+
+END Patch.

@@ -1,0 +1,4 @@
+CExpr: C like expression integer caluculator.
+Kconfig: Kernel config parser and configurator.
+pgn: Chess record file .pgn parser and board shower.
+rss: RSS parser.

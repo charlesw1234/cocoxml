@@ -1,0 +1,10 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+Import('env', 'lib', 'cocoexe')
+
+targets = ['Scanner.h', 'Scanner.c', 'Parser.h', 'Parser.c']
+env.Command(targets, ['pgn.atg'], '"%s" -g $SOURCES' % str(cocoexe[0]))
+env.Depends(targets, cocoexe)
+env.Program('TestPgn', ['main.c', 'pgngame.c', 'Parser.c', 'Scanner.c', lib])

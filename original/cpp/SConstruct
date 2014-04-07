@@ -1,0 +1,19 @@
+# -*- python -*-
+import os.path
+
+env = Environment(CCFLAGS = ['-g', '-Wall'])
+Export('env')
+
+SConscript(os.path.join('coco', 'SConscript'))
+Import('Coco')
+
+env.Command(['Scanner.cpp', 'Scanner.h', 'Parser.cpp', 'Parser.h'], [Coco, 'CocoXml.atg'],
+            '${SOURCES[0]} -frames ${SOURCES[0].srcdir} -namespace CocoXml ${SOURCES[1]}')
+CocoXml = env.Program('CocoXml', Glob('*.cpp'))
+Export('CocoXml')
+
+XmlScannerFrame = env.File('XmlScanner.frame')
+XmlParserFrame = env.File('XmlParser.frame')
+Export('XmlScannerFrame', 'XmlParserFrame')
+
+SConscript(os.path.join('samples', 'SConscript'))

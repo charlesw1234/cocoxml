@@ -1,0 +1,1008 @@
+Index: Scanner.h
+===================================================================
+--- Scanner.h	（版本 0）
++++ Scanner.h	（版本 0）
+@@ -0,0 +1,70 @@
++/*---- license ----*/
++/*-------------------------------------------------------------------------
++ patch.atg
++ Copyright (C) 2008, Charles Wang
++ Author: Charles Wang  <charlesw123456@gmail.com>
++ License: LGPLv2
++-------------------------------------------------------------------------*/
++/*---- enable ----*/
++#ifndef COCO_PatchScanner_H
++#define COCO_PatchScanner_H
++
++#ifndef  COCO_TOKEN_H
++#include "c/Token.h"
++#endif
++
++#ifndef  COCO_POSITION_H
++#include "c/Position.h"
++#endif
++
++EXTC_BEGIN
++
++/*---- defines ----*/
++#define PatchScanner_MAX_KEYWORD_LEN 0
++#define PatchScanner_CASE_SENSITIVE
++/*---- enable ----*/
++
++typedef struct PatchScanner_s PatchScanner_t;
++struct PatchScanner_s {
++    CcsErrorPool_t * errpool;
++    CcsToken_t     * dummyToken;
++    CcsScanInput_t * cur;
++};
++
++PatchScanner_t *
++PatchScanner(PatchScanner_t * self, CcsErrorPool_t * errpool, FILE * fp);
++PatchScanner_t *
++PatchScanner_ByName(PatchScanner_t * self, CcsErrorPool_t * errpool,
++		  const char * infn);
++void PatchScanner_Destruct(PatchScanner_t * self);
++CcsToken_t * PatchScanner_GetDummy(PatchScanner_t * self);
++
++CcsToken_t * PatchScanner_Scan(PatchScanner_t * self);
++void PatchScanner_TokenIncRef(PatchScanner_t * self, CcsToken_t * token);
++void PatchScanner_TokenDecRef(PatchScanner_t * self, CcsToken_t * token);
++
++CcsPosition_t *
++PatchScanner_GetPosition(PatchScanner_t * self, const CcsToken_t * begin,
++		       const CcsToken_t * end);
++CcsPosition_t *
++PatchScanner_GetPositionBetween(PatchScanner_t * self, const CcsToken_t * begin,
++			      const CcsToken_t * end);
++
++CcsToken_t * PatchScanner_Peek(PatchScanner_t * self);
++void PatchScanner_ResetPeek(PatchScanner_t * self);
++
++#ifdef PatchScanner_INDENTATION
++/* If the col >= indentIn->col, not any IndentIn/IndentOut/IndentErr is generated.
++ * Useful when we need to collect ANY text by indentation. */
++void PatchScanner_IndentLimit(PatchScanner_t * self, const CcsToken_t * indentIn);
++#endif
++
++CcsBool_t
++PatchScanner_Include(PatchScanner_t * self, FILE * fp, CcsToken_t ** token);
++CcsBool_t
++PatchScanner_IncludeByName(PatchScanner_t * self, const CcsIncPathList_t * list,
++			 const char * infn, CcsToken_t ** token);
++
++EXTC_END
++
++#endif  /* COCO_PatchScanner_H */
+Index: Parser.h
+===================================================================
+--- Parser.h	（版本 0）
++++ Parser.h	（版本 0）
+@@ -0,0 +1,52 @@
++/*---- license ----*/
++/*-------------------------------------------------------------------------
++ patch.atg
++ Copyright (C) 2008, Charles Wang
++ Author: Charles Wang  <charlesw123456@gmail.com>
++ License: LGPLv2
++-------------------------------------------------------------------------*/
++/*---- enable ----*/
++#ifndef  COCO_PatchParser_H
++#define  COCO_PatchParser_H
++
++#ifndef  COCO_ERRORPOOL_H
++#include "c/ErrorPool.h"
++#endif
++
++#ifndef  COCO_PatchScanner_H
++#include "Scanner.h"
++#endif
++
++/*---- hIncludes ----*/
++/*---- enable ----*/
++
++EXTC_BEGIN
++
++/*---- SynDefines ----*/
++/*---- enable ----*/
++
++typedef struct PatchParser_s PatchParser_t;
++struct PatchParser_s {
++    CcsErrorPool_t    errpool;
++    PatchScanner_t      scanner;
++    CcsToken_t      * t;
++    CcsToken_t      * la;
++    int               maxT;
++    /*---- members ----*/
++    
++    /*---- enable ----*/
++};
++
++PatchParser_t * PatchParser(PatchParser_t * self, FILE * infp, FILE * errfp);
++PatchParser_t *
++PatchParser_ByName(PatchParser_t * self, const char * infn, FILE * errfp);
++void PatchParser_Destruct(PatchParser_t * self);
++void PatchParser_Parse(PatchParser_t * self);
++
++void PatchParser_SemErr(PatchParser_t * self, const CcsToken_t * token,
++		      const char * format, ...);
++void PatchParser_SemErrT(PatchParser_t * self, const char * format, ...);
++
++EXTC_END
++
++#endif /* COCO_PARSER_H */
+Index: main.c
+===================================================================
+--- main.c	（版本 754）
++++ main.c	（工作副本）
+@@ -20,19 +20,19 @@
+ int
+ main(int argc, char * argv[])
+ {
+-    JsonParser_t parser;
++    PatchParser_t parser;
+ 
+     if (argc != 2) {
+-	fprintf(stderr, "%s JSON-FILENAME\n", argv[0]);
++	fprintf(stderr, "%s PATCH-FILENAME\n", argv[0]);
+ 	goto errquit0;
+     }
+     if (!strcmp(argv[1], "-")) {
+-	if (!JsonParser(&parser, stdin, stderr)) goto errquit0;
++	if (!PatchParser(&parser, stdin, stderr)) goto errquit0;
+     } else {
+-	if (!JsonParser_ByName(&parser, argv[1], stderr)) goto errquit0;
++	if (!PatchParser_ByName(&parser, argv[1], stderr)) goto errquit0;
+     }
+-    JsonParser_Parse(&parser);
+-    JsonParser_Destruct(&parser);
++    PatchParser_Parse(&parser);
++    PatchParser_Destruct(&parser);
+     return 0;
+  errquit0:
+     return -1;
+Index: SConscript
+===================================================================
+--- SConscript	（版本 754）
++++ SConscript	（工作副本）
+@@ -5,7 +5,7 @@
+ Import('env', 'lib', 'cocoexe')
+ 
+ targets = ['Scanner.h', 'Scanner.c', 'Parser.h', 'Parser.c']
+-env.Command(targets, ['Json.atg'], '"%s" -g $SOURCES' % str(cocoexe[0]))
++env.Command(targets, ['patch.atg'], '"%s" -g $SOURCES' % str(cocoexe[0]))
+ env.Depends(targets, cocoexe)
+ 
+-env.Program('TestJson', ['main.c', 'Parser.c', 'Scanner.c', lib])
++env.Program('TestPatch', ['main.c', 'Parser.c', 'Scanner.c', lib])
+Index: patch.atg
+===================================================================
+--- patch.atg	（版本 754）
++++ patch.atg	（工作副本）
+@@ -23,6 +23,8 @@
+ 
+ DESTRUCTOR
+ 
++OPTIONS "space"
++
+ CHARACTERS
+     digit = "0123456789".
+     cr = '\r'.
+@@ -34,10 +36,12 @@
+ 
+ PRODUCTIONS
+ 
+-Patch = { FilePatch }.
++Patch = FilePatch { FilePatch }.
+ 
+-FilePatch = {{ ANY } eol} FileSubLine FileAddLine Piece { Piece }.
++FilePatch = { HeadLine } FileSubLine FileAddLine Piece { Piece }.
+ 
++HeadLine = ("index" | "Index" | "diff" | "=") { ANY } eol.
++
+ FileSubLine = "---" { ANY } eol.
+ FileAddLine = "+++" { ANY } eol.
+ 
+Index: Scanner.c
+===================================================================
+--- Scanner.c	（版本 0）
++++ Scanner.c	（版本 0）
+@@ -0,0 +1,461 @@
++/*---- license ----*/
++/*-------------------------------------------------------------------------
++ patch.atg
++ Copyright (C) 2008, Charles Wang
++ Author: Charles Wang  <charlesw123456@gmail.com>
++ License: LGPLv2
++-------------------------------------------------------------------------*/
++/*---- enable ----*/
++#include  <ctype.h>
++#include  "Scanner.h"
++#include  "c/ScanInput.h"
++#include  "c/Indent.h"
++
++static CcsBool_t PatchScanner_AddInit(void * additional, void * scanner);
++static void PatchScanner_AddDestruct(void * additional);
++static CcsToken_t * PatchScanner_Skip(void * scanner, CcsScanInput_t * input);
++static int PatchScanner_Kind(void * scanner, CcsScanInput_t * input);
++
++static const CcsSI_Info_t Scanner_Info = {
++    /*---- declarations ----*/
++    0, /* additionalSpace */
++    0, /* eofSym */
++    14, /* maxT */
++    14, /* noSym */
++    /*---- enable ----*/
++    PatchScanner_AddInit,
++    PatchScanner_AddDestruct,
++    PatchScanner_Skip,
++    PatchScanner_Kind
++};
++
++#ifdef PatchScanner_INDENTATION
++static const CcsIndentInfo_t Scanner_IndentInfo = {
++    PatchScanner_INDENT_IN, PatchScanner_INDENT_OUT, PatchScanner_INDENT_ERR
++};
++static void CcsGetCh(CcsScanInput_t * si)
++{
++    CcsIndent_t * indent = (CcsIndent_t *)(si + 1);
++    if (si->oldEols == 0 && si->ch == '\n') indent->lineStart = TRUE;
++    CcsScanInput_GetCh(si);
++}
++#else
++#define CcsGetCh(si)  CcsScanInput_GetCh(si)
++#endif
++
++static const char * dummyval = "dummy";
++
++static CcsBool_t
++PatchScanner_Init(PatchScanner_t * self, CcsErrorPool_t * errpool) {
++    self->errpool = errpool;
++    if (!(self->dummyToken =
++	  CcsToken(NULL, 0, NULL, 0, 0, 0, dummyval, strlen(dummyval))))
++	return FALSE;
++    return TRUE;
++}
++
++PatchScanner_t *
++PatchScanner(PatchScanner_t * self, CcsErrorPool_t * errpool, FILE * fp)
++{
++    if (!(self->cur = CcsScanInput(self, &Scanner_Info, fp)))
++	goto errquit0;
++    if (!PatchScanner_Init(self, errpool)) goto errquit1;
++    CcsGetCh(self->cur);
++    return self;
++ errquit1:
++    CcsScanInput_Detach(self->cur);
++ errquit0:
++    return NULL;
++}
++
++PatchScanner_t *
++PatchScanner_ByName(PatchScanner_t * self, CcsErrorPool_t * errpool,
++		  const char * fn)
++{
++    if (!(self->cur =
++	  CcsScanInput_ByName(self, &Scanner_Info, NULL, NULL, fn)))
++	goto errquit0;
++    if (!PatchScanner_Init(self, errpool)) goto errquit1;
++    CcsGetCh(self->cur);
++    return self;
++ errquit1:
++    CcsScanInput_Detach(self->cur);
++ errquit0:
++    return NULL;
++}
++
++void
++PatchScanner_Destruct(PatchScanner_t * self)
++{
++    CcsScanInput_t * cur, * next;
++    for (cur = self->cur; cur; cur = next) {
++	next = cur->next;
++	/* May be trigged by .atg/.xatg. */
++	CcsAssert(cur->busyFirst == NULL);
++	CcsAssert(cur->busyLast == NULL);
++	CcsScanInput_Detach(cur);
++    }
++    /* May be trigged by .atg semantic code. */
++    CcsAssert(self->dummyToken->refcnt == 1);
++    CcsToken_Destruct(self->dummyToken);
++}
++
++CcsToken_t *
++PatchScanner_GetDummy(PatchScanner_t * self)
++{
++    PatchScanner_TokenIncRef(self, self->dummyToken);
++    return self->dummyToken;
++}
++
++CcsToken_t *
++PatchScanner_Scan(PatchScanner_t * self)
++{
++    CcsToken_t * token; CcsScanInput_t * next;
++    for (;;) {
++	token = CcsScanInput_Scan(self->cur);
++	if (token->kind != Scanner_Info.eofSym) break;
++	if (self->cur->next == NULL) break;
++	CcsScanInput_TokenDecRef(token->input, token);
++	next = self->cur->next;
++	CcsScanInput_Detach(self->cur);
++	self->cur = next;
++    }
++    return token;
++}
++
++void
++PatchScanner_TokenIncRef(PatchScanner_t * self, CcsToken_t * token)
++{
++    if (token == self->dummyToken) ++token->refcnt;
++    else CcsScanInput_TokenIncRef(token->input, token);
++}
++
++void
++PatchScanner_TokenDecRef(PatchScanner_t * self, CcsToken_t * token)
++{
++    if (token == self->dummyToken) --token->refcnt;
++    else CcsScanInput_TokenDecRef(token->input, token);
++}
++
++CcsPosition_t *
++PatchScanner_GetPosition(PatchScanner_t * self, const CcsToken_t * begin,
++		       const CcsToken_t * end)
++{
++    return CcsScanInput_GetPosition(begin->input, begin, end);
++}
++
++CcsPosition_t *
++PatchScanner_GetPositionBetween(PatchScanner_t * self, const CcsToken_t * begin,
++			      const CcsToken_t * end)
++{
++    return CcsScanInput_GetPositionBetween(begin->input, begin, end);
++}
++
++CcsToken_t *
++PatchScanner_Peek(PatchScanner_t * self)
++{
++    CcsToken_t * token; CcsScanInput_t * cur;
++    cur = self->cur;
++    for (;;) {
++	token = CcsScanInput_Peek(self->cur);
++	if (token->kind != Scanner_Info.eofSym) break;
++	if (cur->next == NULL) break;
++	cur = cur->next;
++    }
++    return token;
++}
++
++void
++PatchScanner_ResetPeek(PatchScanner_t * self)
++{
++    CcsScanInput_t * cur;
++    for (cur = self->cur; cur; cur = cur->next)
++	CcsScanInput_ResetPeek(cur);
++}
++
++#ifdef PatchScanner_INDENTATION
++void
++PatchScanner_IndentLimit(PatchScanner_t * self, const CcsToken_t * indentIn)
++{
++    CcsAssert(indentIn->input == self->cur);
++    CcsAssert(indentIn->kind == PatchScanner_INDENT_IN);
++    CcsIndent_SetLimit((CcsIndent_t *)(self->cur + 1), indentIn);
++}
++#endif
++
++CcsBool_t
++PatchScanner_Include(PatchScanner_t * self, FILE * fp, CcsToken_t ** token)
++{
++    CcsScanInput_t * input;
++    if (!(input = CcsScanInput(self, &Scanner_Info, fp))) return FALSE;
++    CcsScanInput_WithDraw(self->cur, *token);
++    input->next = self->cur;
++    self->cur = input;
++    CcsGetCh(input);
++    *token = CcsScanInput_Scan(self->cur);
++    return TRUE;
++}
++
++CcsBool_t
++PatchScanner_IncludeByName(PatchScanner_t * self, const CcsIncPathList_t * list,
++			 const char * infn, CcsToken_t ** token)
++{
++    CcsScanInput_t * input;
++    if (!(input = CcsScanInput_ByName(self, &Scanner_Info,
++				      list, self->cur->fname, infn)))
++	return FALSE;
++    CcsScanInput_WithDraw(self->cur, *token);
++    input->next = self->cur;
++    self->cur = input;
++    CcsGetCh(input);
++    *token = CcsScanInput_Scan(self->cur);
++    return TRUE;
++}
++
++/* All the following things are used by CcsScanInput_NextToken. */
++typedef struct {
++    int keyFrom;
++    int keyTo;
++    int val;
++}  Char2State_t;
++
++static const Char2State_t c2sArr[] = {
++    /*---- chars2states ----*/
++    { EoF, EoF, -1 },
++    { 10, 10, 3 },	/* '\n' '\n' */
++    { 13, 13, 2 },	/* '\r' '\r' */
++    { 32, 32, 26 },	/* ' ' ' ' */
++    { 43, 43, 28 },	/* '+' '+' */
++    { 44, 44, 25 },	/* ',' ',' */
++    { 45, 45, 27 },	/* '-' '-' */
++    { 48, 57, 1 },	/* '0' '9' */
++    { 61, 61, 18 },	/* '=' '=' */
++    { 64, 64, 23 },	/* '@' '@' */
++    { 73, 73, 9 },	/* 'I' 'I' */
++    { 100, 100, 14 },	/* 'd' 'd' */
++    { 105, 105, 4 },	/* 'i' 'i' */
++    /*---- enable ----*/
++};
++static const int c2sNum = sizeof(c2sArr) / sizeof(c2sArr[0]);
++
++static int
++c2sCmp(const void * key, const void * c2s)
++{
++    int keyval = *(const int *)key;
++    const Char2State_t * ccc2s = (const Char2State_t *)c2s;
++    if (keyval < ccc2s->keyFrom) return -1;
++    if (keyval > ccc2s->keyTo) return 1;
++    return 0;
++}
++static int
++Char2State(int chr)
++{
++    Char2State_t * c2s;
++
++    c2s = bsearch(&chr, c2sArr, c2sNum, sizeof(Char2State_t), c2sCmp);
++    return c2s ? c2s->val : 0;
++}
++
++#ifdef PatchScanner_KEYWORD_USED
++typedef struct {
++    const char * key;
++    int val;
++}  Identifier2KWKind_t;
++
++static const Identifier2KWKind_t i2kArr[] = {
++    /*---- identifiers2keywordkinds ----*/
++    /*---- enable ----*/
++};
++static const int i2kNum = sizeof(i2kArr) / sizeof(i2kArr[0]);
++
++static int
++i2kCmp(const void * key, const void * i2k)
++{
++    return strcmp((const char *)key, ((const Identifier2KWKind_t *)i2k)->key);
++}
++
++static int
++Identifier2KWKind(const char * key, size_t keylen, int defaultVal)
++{
++#ifndef PatchScanner_CASE_SENSITIVE
++    char * cur;
++#endif
++    char keystr[PatchScanner_MAX_KEYWORD_LEN + 1];
++    Identifier2KWKind_t * i2k;
++
++    if (keylen > PatchScanner_MAX_KEYWORD_LEN) return defaultVal;
++    memcpy(keystr, key, keylen);
++    keystr[keylen] = 0;
++#ifndef PatchScanner_CASE_SENSITIVE
++    for (cur = keystr; *cur; ++cur) *cur = tolower(*cur);
++#endif
++    i2k = bsearch(keystr, i2kArr, i2kNum, sizeof(Identifier2KWKind_t), i2kCmp);
++    return i2k ? i2k->val : defaultVal;
++}
++
++static int
++GetKWKind(CcsScanInput_t * self, int start, int end, int defaultVal)
++{
++    return Identifier2KWKind(CcsBuffer_GetString(&self->buffer,
++						 start, end - start),
++			     end - start, defaultVal);
++}
++#endif /* PatchScanner_KEYWORD_USED */
++
++static CcsBool_t
++PatchScanner_AddInit(void * additional, void * scanner)
++{
++#ifdef PatchScanner_INDENTATION
++    if (!CcsIndent_Init(additional, &Scanner_IndentInfo)) return FALSE;
++#endif
++    return TRUE;
++}
++
++static void
++PatchScanner_AddDestruct(void * additional)
++{
++#ifdef PatchScanner_INDENTATION
++    CcsIndent_Destruct(additional);
++#endif
++}
++
++static const CcsComment_t comments[] = {
++/*---- comments ----*/
++/*---- enable ----*/
++};
++static const CcsComment_t * commentsLast =
++    comments + sizeof(comments) / sizeof(comments[0]);
++
++static CcsToken_t *
++PatchScanner_Skip(void * scanner, CcsScanInput_t * input)
++{
++#ifdef PatchScanner_INDENTATION
++    CcsToken_t * t;
++#endif
++    const CcsComment_t * curComment;
++    for (;;) {
++	while (
++	       /*---- scan1 ----*/
++	       FALSE
++	       /*---- enable ----*/
++	       )  CcsGetCh(input);
++#ifdef PatchScanner_INDENTATION
++	if ((t = CcsIndent_Generator((CcsIndent_t *)(input + 1), input)))
++	    return t;
++#endif
++	for (curComment = comments; curComment < commentsLast; ++curComment)
++	    if (input->ch == curComment->start[0] &&
++		CcsScanInput_Comment(input, curComment)) break;
++	if (curComment >= commentsLast) break;
++    }
++    return NULL;
++}
++
++static int PatchScanner_Kind(void * scanner, CcsScanInput_t * input)
++{
++    int kind, pos, state;
++
++    pos = input->pos;
++    state = Char2State(input->ch);
++    CcsGetCh(input);
++    kind = -2; /* Avoid gcc warning */
++    switch (state) {
++    case -1: kind = Scanner_Info.eofSym; break;
++    case 0: kind = Scanner_Info.noSym; break;
++    /*---- scan3 ----*/
++    case 1: case_1:
++	if ((input->ch >= '0' && input->ch <= '9')) {
++	    CcsGetCh(input); goto case_1;
++	} else { kind = 1; break; }
++    case 2:
++	if (input->ch == '\n') {
++	    CcsGetCh(input); goto case_3;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 3: case_3:
++	{ kind = 2; break; }
++    case 4:
++	if (input->ch == 'n') {
++	    CcsGetCh(input); goto case_5;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 5: case_5:
++	if (input->ch == 'd') {
++	    CcsGetCh(input); goto case_6;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 6: case_6:
++	if (input->ch == 'e') {
++	    CcsGetCh(input); goto case_7;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 7: case_7:
++	if (input->ch == 'x') {
++	    CcsGetCh(input); goto case_8;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 8: case_8:
++	{ kind = 3; break; }
++    case 9:
++	if (input->ch == 'n') {
++	    CcsGetCh(input); goto case_10;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 10: case_10:
++	if (input->ch == 'd') {
++	    CcsGetCh(input); goto case_11;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 11: case_11:
++	if (input->ch == 'e') {
++	    CcsGetCh(input); goto case_12;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 12: case_12:
++	if (input->ch == 'x') {
++	    CcsGetCh(input); goto case_13;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 13: case_13:
++	{ kind = 4; break; }
++    case 14:
++	if (input->ch == 'i') {
++	    CcsGetCh(input); goto case_15;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 15: case_15:
++	if (input->ch == 'f') {
++	    CcsGetCh(input); goto case_16;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 16: case_16:
++	if (input->ch == 'f') {
++	    CcsGetCh(input); goto case_17;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 17: case_17:
++	{ kind = 5; break; }
++    case 18:
++	{ kind = 6; break; }
++    case 19: case_19:
++	if (input->ch == '-') {
++	    CcsGetCh(input); goto case_20;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 20: case_20:
++	{ kind = 7; break; }
++    case 21: case_21:
++	if (input->ch == '+') {
++	    CcsGetCh(input); goto case_22;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 22: case_22:
++	{ kind = 8; break; }
++    case 23:
++	if (input->ch == '@') {
++	    CcsGetCh(input); goto case_24;
++	} else { kind = Scanner_Info.noSym; break; }
++    case 24: case_24:
++	{ kind = 9; break; }
++    case 25:
++	{ kind = 11; break; }
++    case 26:
++	{ kind = 13; break; }
++    case 27:
++	if (input->ch == '-') {
++	    CcsGetCh(input); goto case_19;
++	} else { kind = 10; break; }
++    case 28:
++	if (input->ch == '+') {
++	    CcsGetCh(input); goto case_21;
++	} else { kind = 12; break; }
++    /*---- enable ----*/
++    }
++    return kind;
++}
+Index: Parser.c
+===================================================================
+--- Parser.c	（版本 0）
++++ Parser.c	（版本 0）
+@@ -0,0 +1,333 @@
++/*---- license ----*/
++/*-------------------------------------------------------------------------
++ patch.atg
++ Copyright (C) 2008, Charles Wang
++ Author: Charles Wang  <charlesw123456@gmail.com>
++ License: LGPLv2
++-------------------------------------------------------------------------*/
++/*---- enable ----*/
++#include  "Parser.h"
++#include  "c/Token.h"
++
++/*---- cIncludes ----*/
++/*---- enable ----*/
++
++static void PatchParser_SynErr(PatchParser_t * self, int n);
++static const char * set[];
++
++static void
++PatchParser_Get(PatchParser_t * self)
++{
++    if (self->t) PatchScanner_TokenDecRef(&self->scanner, self->t);
++    self->t = self->la;
++    for (;;) {
++	self->la = PatchScanner_Scan(&self->scanner);
++	if (self->la->kind <= self->maxT) { /*++self->errDist;*/ break; }
++	/* May be implement pragmas here is wrong... But I still not found any
++	 * needs to use pragmas, so just leave it along. */
++	/*---- Pragmas ----*/
++	/*---- enable ----*/
++    }
++}
++
++static CcsBool_t
++PatchParser_StartOf(PatchParser_t * self, int s)
++{
++    return set[s][self->la->kind] == '*';
++}
++
++static void
++PatchParser_Expect(PatchParser_t * self, int n)
++{
++    if (self->la->kind == n) PatchParser_Get(self);
++    else PatchParser_SynErr(self, n);
++}
++
++#ifdef PatchParser_WEAK_USED
++static void
++PatchParser_ExpectWeak(PatchParser_t * self, int n, int follow)
++{
++    if (self->la->kind == n) PatchParser_Get(self);
++    else {
++	PatchParser_SynErr(self, n);
++	while (!PatchParser_StartOf(self, follow)) PatchParser_Get(self);
++    }
++}
++
++static CcsBool_t
++PatchParser_WeakSeparator(PatchParser_t * self, int n, int syFol, int repFol)
++{
++    if (self->la->kind == n) { PatchParser_Get(self); return TRUE; }
++    else if (PatchParser_StartOf(self, repFol)) { return FALSE; }
++    PatchParser_SynErr(self, n);
++    while (!(PatchParser_StartOf(self, syFol) ||
++	     PatchParser_StartOf(self, repFol) ||
++	     PatchParser_StartOf(self, 0)))
++	PatchParser_Get(self);
++    return PatchParser_StartOf(self, syFol);
++}
++#endif /* PatchParser_WEAK_USED */
++
++/*---- ProductionsHeader ----*/
++static void PatchParser_Patch(PatchParser_t * self);
++static void PatchParser_FilePatch(PatchParser_t * self);
++static void PatchParser_HeadLine(PatchParser_t * self);
++static void PatchParser_FileSubLine(PatchParser_t * self);
++static void PatchParser_FileAddLine(PatchParser_t * self);
++static void PatchParser_Piece(PatchParser_t * self);
++static void PatchParser_PieceLine(PatchParser_t * self);
++static void PatchParser_AddLine(PatchParser_t * self);
++static void PatchParser_SubLine(PatchParser_t * self);
++static void PatchParser_SameLine(PatchParser_t * self);
++/*---- enable ----*/
++
++void
++PatchParser_Parse(PatchParser_t * self)
++{
++    self->t = NULL;
++    self->la = PatchScanner_GetDummy(&self->scanner);
++    PatchParser_Get(self);
++    /*---- ParseRoot ----*/
++    PatchParser_Patch(self);
++    /*---- enable ----*/
++    PatchParser_Expect(self, 0);
++}
++
++void
++PatchParser_SemErr(PatchParser_t * self, const CcsToken_t * token,
++		 const char * format, ...)
++{
++    va_list ap;
++    va_start(ap, format);
++    CcsErrorPool_VError(&self->errpool, &token->loc, format, ap);
++    va_end(ap);
++}
++
++void
++PatchParser_SemErrT(PatchParser_t * self, const char * format, ...)
++{
++    va_list ap;
++    va_start(ap, format);
++    CcsErrorPool_VError(&self->errpool, &self->t->loc, format, ap);
++    va_end(ap);
++}
++
++static CcsBool_t
++PatchParser_Init(PatchParser_t * self)
++{
++    self->t = self->la = NULL;
++    /*---- constructor ----*/
++    self->maxT = 14;
++    
++    /*---- enable ----*/
++    return TRUE;
++}
++
++PatchParser_t *
++PatchParser(PatchParser_t * self, FILE  * infp, FILE * errfp)
++{
++    if (!CcsErrorPool(&self->errpool, errfp)) goto errquit0;
++    if (!PatchScanner(&self->scanner, &self->errpool, infp)) goto errquit1;
++    if (!PatchParser_Init(self)) goto errquit2;
++    return self;
++ errquit2:
++    PatchScanner_Destruct(&self->scanner);
++ errquit1:
++    CcsErrorPool_Destruct(&self->errpool);
++ errquit0:
++    return NULL;
++}
++
++PatchParser_t *
++PatchParser_ByName(PatchParser_t * self, const char * infn, FILE * errfp)
++{
++    if (!CcsErrorPool(&self->errpool, errfp)) goto errquit0;
++    if (!PatchScanner_ByName(&self->scanner, &self->errpool, infn))
++	goto errquit1;
++    if (!PatchParser_Init(self)) goto errquit2;
++    return self;
++ errquit2:
++    PatchScanner_Destruct(&self->scanner);
++ errquit1:
++    CcsErrorPool_Destruct(&self->errpool);
++ errquit0:
++    return NULL;
++}
++
++void
++PatchParser_Destruct(PatchParser_t * self)
++{
++    /*---- destructor ----*/
++    
++    /*---- enable ----*/
++    if (self->la) PatchScanner_TokenDecRef(&self->scanner, self->la);
++    if (self->t) PatchScanner_TokenDecRef(&self->scanner, self->t);
++    PatchScanner_Destruct(&self->scanner);
++    CcsErrorPool_Destruct(&self->errpool);
++}
++
++/*---- ProductionsBody ----*/
++static void
++PatchParser_Patch(PatchParser_t * self)
++{
++    PatchParser_FilePatch(self);
++    while (PatchParser_StartOf(self, 1)) {
++	PatchParser_FilePatch(self);
++    }
++}
++
++static void
++PatchParser_FilePatch(PatchParser_t * self)
++{
++    while (PatchParser_StartOf(self, 2)) {
++	PatchParser_HeadLine(self);
++    }
++    PatchParser_FileSubLine(self);
++    PatchParser_FileAddLine(self);
++    PatchParser_Piece(self);
++    while (self->la->kind == 9) {
++	PatchParser_Piece(self);
++    }
++}
++
++static void
++PatchParser_HeadLine(PatchParser_t * self)
++{
++    if (self->la->kind == 3) {
++	PatchParser_Get(self);
++    } else if (self->la->kind == 4) {
++	PatchParser_Get(self);
++    } else if (self->la->kind == 5) {
++	PatchParser_Get(self);
++    } else if (self->la->kind == 6) {
++	PatchParser_Get(self);
++    } else PatchParser_SynErr(self, 15);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_FileSubLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 7);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_FileAddLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 8);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_Piece(PatchParser_t * self)
++{
++    PatchParser_PieceLine(self);
++    while (self->la->kind == 10 || self->la->kind == 12 || self->la->kind == 13) {
++	if (self->la->kind == 12) {
++	    PatchParser_AddLine(self);
++	} else if (self->la->kind == 10) {
++	    PatchParser_SubLine(self);
++	} else {
++	    PatchParser_SameLine(self);
++	}
++    }
++}
++
++static void
++PatchParser_PieceLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 9);
++    PatchParser_Expect(self, 10);
++    PatchParser_Expect(self, 1);
++    PatchParser_Expect(self, 11);
++    PatchParser_Expect(self, 1);
++    PatchParser_Expect(self, 12);
++    PatchParser_Expect(self, 1);
++    PatchParser_Expect(self, 11);
++    PatchParser_Expect(self, 1);
++    PatchParser_Expect(self, 9);
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_AddLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 12);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_SubLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 10);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++static void
++PatchParser_SameLine(PatchParser_t * self)
++{
++    PatchParser_Expect(self, 13);
++    while (PatchParser_StartOf(self, 3)) {
++	PatchParser_Get(self);
++    }
++    PatchParser_Expect(self, 2);
++}
++
++/*---- enable ----*/
++
++static void
++PatchParser_SynErr(PatchParser_t * self, int n)
++{
++    const char * s; char format[20];
++    switch (n) {
++    /*---- SynErrors ----*/
++    case 0: s = "\"" "EOF" "\" expected"; break;
++    case 1: s = "\"" "number" "\" expected"; break;
++    case 2: s = "\"" "eol" "\" expected"; break;
++    case 3: s = "\"" "index" "\" expected"; break;
++    case 4: s = "\"" "Index" "\" expected"; break;
++    case 5: s = "\"" "diff" "\" expected"; break;
++    case 6: s = "\"" "=" "\" expected"; break;
++    case 7: s = "\"" "---" "\" expected"; break;
++    case 8: s = "\"" "+++" "\" expected"; break;
++    case 9: s = "\"" "@@" "\" expected"; break;
++    case 10: s = "\"" "-" "\" expected"; break;
++    case 11: s = "\"" "," "\" expected"; break;
++    case 12: s = "\"" "+" "\" expected"; break;
++    case 13: s = "\"" " " "\" expected"; break;
++    case 14: s = "\"" "???" "\" expected"; break;
++    case 15: s = "this symbol not expected in \"" "HeadLine" "\""; break;
++    /*---- enable ----*/
++    default:
++	snprintf(format, sizeof(format), "error %d", n);
++	s = format;
++	break;
++    }
++    PatchParser_SemErr(self, self->la, "%s", s);
++}
++
++static const char * set[] = {
++    /*---- InitSet ----*/
++    /*    5    0     */
++    "*...............", /* 0 */
++    "...*****........", /* 1 */
++    "...****.........", /* 2 */
++    ".*.************."  /* 3 */
++    /*---- enable ----*/
++};

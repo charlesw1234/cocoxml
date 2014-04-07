@@ -1,0 +1,208 @@
+/*-------------------------------------------------------------------------
+rss.atg -- RSS(Really Simple Syndication) Grammer
+Copyright (c) 2008 Charles Wang <charlesw123456@gmail.com>
+
+This program is free software; you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by the 
+Free Software Foundation; either version 2, or (at your option) any 
+later version.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+for more details.
+
+You should have received a copy of the GNU General Public License along 
+with this program; if not, write to the Free Software Foundation, Inc., 
+59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------
+ compile with:
+   CocoXml rss.atg
+-------------------------------------------------------------------------*/
+
+COMPILER Rss
+
+	 public Rss rss;
+
+/*-------------------------------------------------------------------------*/
+OPTIONS TEXT
+
+TAGS
+	RSS = "rss"
+	CHANNEL = "channel"
+	ITEM = "item"
+	TITLE = "title"
+	LINK = "link"
+	DESCRIPTION = "description"
+	LANGUAGE = "language"
+	COPYRIGHT = "copyright"
+	MANAGING_EDITOR = "managingEditor"
+	WEB_MASTER = "webMaster"
+	PUB_DATE = "pubDate"
+	LAST_BUILD_DATE = "lastBuildDate"
+	CATEGORY = "category"
+	GENERATOR = "generator"
+	DOCS = "docs"
+	CLOUD = "cloud"
+	TTL = "ttl"
+	IMAGE = "image"
+	RATING = "rating"
+	TEXT_INPUT = "textInput"
+	NAME = "name"
+	SKIP_HOURS = "skipHours"
+	SKIP_DAYS = "skipDays"
+	URL = "url"
+	WIDTH = "width"
+	HEIGHT = "height"
+	AUTHOR = "author"
+	COMMENTS = "comments"
+	ENCLOSURE = "enclosure"
+	GUID = "guid"
+	SOURCE = "source"
+
+ATTRS
+	ATTR_DOMAIN = "domain"
+	ATTR_PORT = "port"
+	ATTR_PATH = "path"
+	ATTR_REGISTER_PROCEDURE = "registerProcedure"
+	ATTR_PROTOCOL = "protocol"
+
+/*-------------------------------------------------------------------------*/
+PRODUCTIONS
+
+Rss = (. Channel channel; rss = new Rss(); .)
+	RSS {
+	Channel<out channel> (. rss.AddChannel(channel); .)
+	} END_RSS.
+
+Channel<out Channel channel> = (. channel = new Channel(); .)
+	CHANNEL { ChannelProperty<channel> } END_CHANNEL.
+
+ChannelProperty<Channel channel>  (. string value;
+			             Cloud cloud;
+				     Image image;
+				     TextInput textInput;
+				     Item item; .) =
+	Title<out value>            (. channel.title = value; .)
+	| Link<out value>           (. channel.link = value; .)
+	| Description<out value>    (. channel.description = value; .)
+	| Language<out value>       (. channel.language = value; .)
+	| Copyright<out value>      (. channel.copyright = value; .)
+	| ManagingEditor<out value> (. channel.managingEditor = value; .)
+	| WebMaster<out value>      (. channel.webMaster = value; .)
+	| PubDate<out value>        (. channel.pubDate = value; .)
+	| LastBuildDate<out value>  (. channel.lastBuildDate = value; .)
+	| Category<out value>       (. channel.category = value; .)
+	| Generator<out value>      (. channel.generator = value; .)
+	| Docs<out value>           (. channel.docs = value; .)
+	| Cloud<out cloud>          (. channel.cloud = cloud; .)
+	| Ttl<out value>            (. channel.ttl = value; .)
+	| Image<out image>          (. channel.image = image; .)
+	| Rating<out value>         (. channel.rating = value; .)
+	| TextInput<out textInput>  (. channel.textInput = textInput; .)
+	| SkipHours<out value>      (. channel.skipHours = value; .)
+	| SkipDays<out value>       (. channel.skipDays = value; .)
+        | Item<out item>            (. channel.AddItem(item); .)
+.
+
+Cloud<out Cloud cloud> = (. cloud = new Cloud(); .)
+	CLOUD
+	{ ATTR_DOMAIN              (. cloud.domain = t.val; .)
+	| ATTR_PORT                (. cloud.port = t.val; .)
+	| ATTR_PATH                (. cloud.path = t.val; .)
+	| ATTR_REGISTER_PROCEDURE  (. cloud.registerProcedure = t.val; .)
+	| ATTR_PROTOCOL            (. cloud.protocol = t.val; .)
+	} END_CLOUD
+.
+
+Image<out Image image> = (. image = new Image(); .)
+	IMAGE { ImageProperty<image> } END_IMAGE.
+
+ImageProperty<Image image>  (. string value; .) =
+	Url<out value>      (. image.url = value; .)
+	| Title<out value>  (. image.title = value; .)
+	| Link<out value>   (. image.link = value; .)
+	| Width<out value>  (. image.width = value; .)
+	| Height<out value> (. image.height = value; .)
+.
+
+TextInput<out TextInput textInput> = (. textInput = new TextInput(); .)
+	TEXT_INPUT { TextInputProperty<textInput> } END_TEXT_INPUT.
+
+TextInputProperty<TextInput textInput> (. string value; .) =
+	Title<out value>         (. textInput.title = value; .)
+	| Description<out value> (. textInput.description = value; .)
+	| Name<out value>        (. textInput.name = value; .)
+	| Link<out value>        (. textInput.link = value; .)
+.
+
+Item<out Item item> = (. item = new Item(); .)
+	ITEM { ItemProperty<item> } END_ITEM.
+
+ItemProperty<Item item> (. string value; Image image; .) =
+	Title<out value>          (. item.title = value; .)
+	| Link<out value>         (. item.link = value; .)
+	| Description<out value>  (. item.description = value; .)
+	| Author<out value>       (. item.author = value; .)
+	| Category<out value>     (. item.category = value; .)
+	| Comments<out value>     (. item.comments = value; .)
+	| Enclosure<out value>    (. item.enclosure = value; .)
+	| Guid<out value>         (. item.guid = value; .)
+	| PubDate<out value>      (. item.pubdate = value; .)
+	| Source<out value>       (. item.source = value; .)
+	| Image<out image>        (. item.image = image; .)
+.
+
+
+Title<out string value> = TITLE TEXT (. value = t.val; .) END_TITLE.
+
+Link<out string value> = LINK TEXT (. value = t.val; .) END_LINK .
+
+Description<out string value> = DESCRIPTION TEXT (. value = t.val; .) END_DESCRIPTION .
+
+Language<out string value> = LANGUAGE TEXT (. value = t.val; .) END_LANGUAGE.
+
+Copyright<out string value> = COPYRIGHT TEXT (. value = t.val; .) END_COPYRIGHT.
+
+ManagingEditor<out string value> = MANAGING_EDITOR TEXT (. value = t.val; .) END_MANAGING_EDITOR.
+
+WebMaster<out string value> = WEB_MASTER TEXT (. value = t.val; .) END_WEB_MASTER.
+
+PubDate<out string value> = PUB_DATE TEXT (. value = t.val; .) END_PUB_DATE.
+
+LastBuildDate<out string value> = LAST_BUILD_DATE TEXT (. value = t.val; .) END_LAST_BUILD_DATE.
+
+Category<out string value> = CATEGORY TEXT (. value = t.val; .) END_CATEGORY.
+
+Generator<out string value> = GENERATOR TEXT (. value = t.val; .) END_GENERATOR.
+
+Docs<out string value> = DOCS TEXT (. value = t.val; .) END_DOCS.
+
+Ttl<out string value> = TTL TEXT (. value = t.val; .) END_TTL.
+
+Url<out string value> = URL TEXT (. value = t.val; .) END_URL.
+
+Width<out string value> = WIDTH TEXT (. value = t.val; .) END_WIDTH.
+
+Height<out string value> = HEIGHT TEXT (. value = t.val; .) END_HEIGHT.
+
+Rating<out string value> = RATING TEXT (. value = t.val; .) END_RATING.
+
+Name<out string value> = NAME TEXT (. value = t.val; .) END_NAME.
+
+SkipHours<out string value> = SKIP_HOURS TEXT (. value = t.val; .) END_SKIP_HOURS.
+
+SkipDays<out string value> = SKIP_DAYS TEXT (. value = t.val; .) END_SKIP_DAYS.
+
+Author<out string value> = AUTHOR TEXT (. value = t.val; .) END_AUTHOR.
+
+Comments<out string value> = COMMENTS TEXT (. value = t.val; .) END_COMMENTS.
+
+Enclosure<out string value> = ENCLOSURE TEXT (. value = t.val; .) END_ENCLOSURE.
+
+Guid<out string value> = GUID TEXT (. value = t.val; .) END_GUID.
+
+Source<out string value> = SOURCE TEXT (. value = t.val; .) END_SOURCE.
+
+END Rss.

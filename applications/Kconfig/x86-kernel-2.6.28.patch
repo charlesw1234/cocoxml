@@ -1,0 +1,157 @@
+--- linux-2.6.28-gentoo/arch/x86/Kconfig.orig	2009-01-26 18:26:12.000000000 +0800
++++ linux-2.6.28-gentoo/arch/x86/Kconfig	2009-01-26 18:26:35.000000000 +0800
+@@ -290,9 +290,9 @@
+ 	  say N here, otherwise the kernel you build will not be bootable.
+ 
+ config X86_GENERICARCH
+-       bool "Generic architecture"
++	bool "Generic architecture"
+ 	depends on X86_32
+-       help
++	help
+           This option compiles in the NUMAQ, Summit, bigsmp, ES7000, default
+ 	  subarchitectures.  It is intended for a generic binary kernel.
+ 	  if you select them all, kernel will probe it one by one. and will
+--- linux-2.6.28-gentoo/drivers/gpu/drm/Kconfig.orig	2009-01-26 13:52:15.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/gpu/drm/Kconfig	2009-01-26 13:53:09.000000000 +0800
+@@ -52,7 +52,6 @@
+ choice
+ 	prompt "Intel 830M, 845G, 852GM, 855GM, 865G"
+ 	depends on DRM && AGP && AGP_INTEL
+-	optional
+ 
+ config DRM_I830
+ 	tristate "i830 driver"
+--- linux-2.6.28-gentoo/drivers/mtd/nand/Kconfig.orig	2009-01-26 13:23:16.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/mtd/nand/Kconfig	2009-01-26 18:11:34.000000000 +0800
+@@ -256,12 +256,12 @@
+           will be named "excite_nandflash.ko".
+ 
+ config MTD_NAND_CAFE
+-	tristate "NAND support for OLPC CAFÉ chip"
++	tristate "NAND support for OLPC CAFE chip"
+ 	depends on PCI
+ 	select REED_SOLOMON
+ 	select REED_SOLOMON_DEC16
+ 	help
+-	  Use NAND flash attached to the CAFÉ chip designed for the OLPC
++	  Use NAND flash attached to the CAFE chip designed for the OLPC
+ 	  laptop.
+ 
+ config MTD_NAND_CS553X
+--- linux-2.6.28-gentoo/drivers/idle/Kconfig.orig	2009-01-26 10:09:55.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/idle/Kconfig	2009-01-26 10:10:10.000000000 +0800
+@@ -1,6 +1,6 @@
+ 
+ menu "Memory power savings"
+-depends on X86_64
++	depends on X86_64
+ 
+ config I7300_IDLE_IOAT_CHANNEL
+ 	bool
+--- linux-2.6.28-gentoo/drivers/hwmon/Kconfig.orig	2009-01-26 13:49:30.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/hwmon/Kconfig	2009-01-26 13:49:44.000000000 +0800
+@@ -294,7 +294,7 @@
+ 	  will be called f71882fg.
+ 
+ config SENSORS_F75375S
+-	tristate "Fintek F75375S/SP and F75373";
++	tristate "Fintek F75375S/SP and F75373"
+ 	depends on I2C && EXPERIMENTAL
+ 	help
+ 	  If you say yes here you get support for hardware monitoring
+--- linux-2.6.28-gentoo/drivers/video/Kconfig.orig	2009-01-26 13:54:02.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/video/Kconfig	2009-01-26 18:18:31.000000000 +0800
+@@ -298,7 +298,6 @@
+ 	  will be called amba-clcd.
+ 
+ choice
+-
+ 	depends on FB_ARMCLCD && (ARCH_LH7A40X || ARCH_LH7952X)
+ 	prompt "LCD Panel"
+ 	default FB_ARMCLCD_SHARP_LQ035Q7DB02
+@@ -1099,7 +1098,6 @@
+ 	bool "Enable DDC Support"
+ 	depends on FB_I810 && FB_I810_GTF
+ 	select FB_DDC
+-	help
+ 
+ config FB_LE80578
+ 	tristate "Intel LE80578 (Vermilion) support"
+@@ -2120,11 +2118,11 @@
+ source "drivers/video/display/Kconfig"
+ 
+ if VT
+-	source "drivers/video/console/Kconfig"
++source "drivers/video/console/Kconfig"
+ endif
+ 
+ if FB || SGI_NEWPORT_CONSOLE
+-	source "drivers/video/logo/Kconfig"
++source "drivers/video/logo/Kconfig"
+ endif
+ 
+ endmenu
+--- linux-2.6.28-gentoo/drivers/auxdisplay/Kconfig.orig	2009-01-26 14:01:40.000000000 +0800
++++ linux-2.6.28-gentoo/drivers/auxdisplay/Kconfig	2009-01-26 14:02:03.000000000 +0800
+@@ -100,7 +100,7 @@
+ 	  If unsure, say N.
+ 
+ config CFAG12864B_RATE
+-       int "Refresh rate (hertz)"
++	int "Refresh rate (hertz)"
+ 	depends on CFAG12864B
+ 	default "20"
+ 	---help---
+--- linux-2.6.28-gentoo/kernel/Kconfig.hz.orig	2009-01-26 10:05:53.000000000 +0800
++++ linux-2.6.28-gentoo/kernel/Kconfig.hz	2009-01-26 10:06:44.000000000 +0800
+@@ -18,32 +18,32 @@
+ 
+ 	config HZ_100
+ 		bool "100 HZ"
+-	help
+-	  100 Hz is a typical choice for servers, SMP and NUMA systems
+-	  with lots of processors that may show reduced performance if
+-	  too many timer interrupts are occurring.
++		help
++		  100 Hz is a typical choice for servers, SMP and NUMA systems
++		  with lots of processors that may show reduced performance if
++		  too many timer interrupts are occurring.
+ 
+ 	config HZ_250
+ 		bool "250 HZ"
+-	help
+-	 250 Hz is a good compromise choice allowing server performance
+-	 while also showing good interactive responsiveness even
+-	 on SMP and NUMA systems. If you are going to be using NTSC video
+-	 or multimedia, selected 300Hz instead.
++		help
++		 250 Hz is a good compromise choice allowing server performance
++		 while also showing good interactive responsiveness even
++		 on SMP and NUMA systems. If you are going to be using NTSC video
++		 or multimedia, selected 300Hz instead.
+ 
+ 	config HZ_300
+ 		bool "300 HZ"
+-	help
+-	 300 Hz is a good compromise choice allowing server performance
+-	 while also showing good interactive responsiveness even
+-	 on SMP and NUMA systems and exactly dividing by both PAL and
+-	 NTSC frame rates for video and multimedia work.
++		help
++		 300 Hz is a good compromise choice allowing server performance
++		 while also showing good interactive responsiveness even
++		 on SMP and NUMA systems and exactly dividing by both PAL and
++		 NTSC frame rates for video and multimedia work.
+ 
+ 	config HZ_1000
+ 		bool "1000 HZ"
+-	help
+-	 1000 Hz is the preferred choice for desktop systems and other
+-	 systems requiring fast interactive responses to events.
++		help
++		 1000 Hz is the preferred choice for desktop systems and other
++		 systems requiring fast interactive responses to events.
+ 
+ endchoice
+ 

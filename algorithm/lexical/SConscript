@@ -1,0 +1,11 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+Import('env')
+Import('cocosrc_libobjs')
+
+cocosrc_libobjs.extend(map(lambda src: env.Object(src),
+                           ['Action', 'CharClass.c', 'CharSet.c', 'Comment.c',
+                            'Melted.c', 'Nodes.c', 'State.c', 'Target.c',
+                            'Transition.c']))

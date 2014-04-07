@@ -1,0 +1,8 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+import os.path
+
+SConscript(os.path.join('basic', 'SConscript'))
+SConscript(os.path.join('csharp', 'SConscript'))

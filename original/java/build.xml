@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project name="CocoXml" default="distclean" basedir=".">
+	<target name="usage">
+		<echo message="Ant Targets:"/>
+		<echo message="    clean: Full clean up."/>
+		<echo message="    build: Build CocoXml."/>
+		<echo message="    dist: Generate a distribution JAR file."/>
+		<echo message="    distclean: Like dist, but deletes the generated class files."/>
+		<echo message="    samples: Build samples."/>
+	</target>
+	
+	<target name="init">
+		<tstamp/>
+	</target>
+	
+	<target name="coco-dist">
+	        <ant dir="coco" antfile="build.xml" target="dist"/>
+	</target>
+
+	<target name="atg2java" depends="coco-dist">
+	        <dependset>
+		        <srcfilelist files="CocoXml.atg,Scanner.frame"/>
+			<targetfilelist files="Scanner.java"/>
+		</dependset>
+		<dependset>
+		        <srcfilelist files="CocoXml.atg,Parser.frame"/>
+			<targetfilelist files="Parser.java"/>
+		</dependset>
+	        <java jar="coco/Coco.jar" fork="true">
+		        <arg line="-package CocoXml CocoXml.atg"/>
+		</java>
+	</target>
+
+	<target name="build" depends="init, atg2java">
+		<echo message="Building CocoXml..."/>
+		<javac sourcepath="" srcdir="." destdir="." source="5" target="5">
+			<include name="*.java"/>
+			<compilerarg value="-Xlint"/>
+		</javac>
+	</target>
+	
+	<target name="dist" depends="build">
+		<echo message="Generating CocoXml jar..."/>
+		<jar
+			destfile="CocoXml.jar"
+			basedir="."
+			includes="CocoXml/**/*.class"
+			manifest="CocoXml.manifest"
+		/>
+	</target>
+	
+	<target name="distclean" depends="dist">
+		<antcall target="cleantemps"/>
+	</target>	
+
+	<target name="cleantemps">
+		<delete dir="CocoXml"/>
+	</target>
+
+	<target name="clean">
+		<antcall target="cleantemps"/>
+		<delete file="CocoXml.jar"/>
+	</target>
+
+	<target name="samples" depends="dist">
+	        <ant dir="samples" antfile="build.xml" target="dist"/>
+	</target>
+
+	<target name="svn-diff">
+		<exec executable="svn">
+			<arg value="diff" />
+			<arg value="--diff-cmd" />
+			<arg value="diff" />
+			<arg value="-x" />
+			<arg value="-uw" />
+		</exec>
+	</target>
+
+</project>

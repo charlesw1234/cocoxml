@@ -1,0 +1,10 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+Import('env')
+
+if 'mono' in env['COCO_FEATURES']:
+    TestExe = env.CLIProgram('Test', ['Main.cs', 'ErrorPool.cs', 'Token.cs',
+                                      'Buffer.cs', 'Position.cs', 'Scanner.cs',
+                                      'Parser.cs'])

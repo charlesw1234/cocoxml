@@ -1,0 +1,16 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+import os.path
+
+Import('env')
+Import('cocosrc_libobjs')
+
+cocosrc_libobjs.extend(map(lambda src: env.Object(src),
+                           ['EBNF.c', 'Symbols.c', 'SymbolTable.c',
+                            'Lexical.c', 'Syntax.c', 'XmlSpec.c',
+                            'XmlSpecMap.c']))
+
+SConscript(os.path.join('lexical', 'SConscript'))
+SConscript(os.path.join('syntax', 'SConscript'))

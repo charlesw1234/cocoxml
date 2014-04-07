@@ -1,0 +1,14 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+Import('env', 'lib', 'cocosrc_lib', 'cocoexe')
+
+if 'expat' in env['COCO_FEATURES']:
+    targets = ['Scanner4Xml.h', 'Scanner4Xml.c',
+               'Parser4Xml.h', 'Parser4Xml.c']
+    env.Command(targets, ['rss.xatg'], '"%s" -g $SOURCES' % str(cocoexe[0]))
+    env.Depends(targets, cocoexe)
+    env.Program('TestRss', ['main.c', 'RssData.c', 'Scanner4Xml.c',
+                            'Parser4Xml.c', cocosrc_lib, lib],
+                LIBS = ['expat'])

@@ -1,0 +1,138 @@
+SECTION license
+/*-------------------------------------------------------------------------
+c-expr.atg -- atg for c expression input
+Copyright (C) 2008, Charles Wang <charlesw123456@gmail.com>
+Author: Charles Wang <charlesw123456@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it 
+ under the terms of the GNU General Public License as published by the 
+ Free Software Foundation; either version 2, or (at your option) any 
+ later version.
+
+ This program is distributed in the hope that it will be useful, but 
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+ for more details.
+
+ You should have received a copy of the GNU General Public License along 
+ with this program; if not, write to the Free Software Foundation, Inc., 
+ 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+-------------------------------------------------------------------------*/
+END.
+
+SCHEME c CExpr
+
+SECTION hIncludes
+END.
+
+SECTION cIncludes
+END.
+
+COMPILER CExpr
+
+MEMBERS
+    int value;
+
+CONSTRUCTOR
+
+DESTRUCTOR
+
+CHARACTERS
+    digit     = "0123456789".
+    cr        = '\r'.
+    lf        = '\n'.
+    tab       = '\t'.
+
+TOKENS
+    number    = digit { digit }.
+
+IGNORE cr + lf + tab
+
+PRODUCTIONS
+
+CExpr =  (. int value; .)
+  expr1<&value> (. self->value = value; .)
+.
+
+expr1<int * value> =                                         (. int subvalue1, subvalue2; .)
+  expr2<value> { "?" expr2<&subvalue1> ":" expr2<&subvalue2> (. *value = *value ? subvalue1 : subvalue2; .)
+  }
+.
+
+expr2<int * value> =                   (. int subvalue; .)
+  expr3<value> { "||" expr3<&subvalue> (. *value = *value || subvalue; .)
+  }
+.
+
+expr3<int * value> =                   (. int subvalue; .)
+  expr4<value> { "&&" expr4<&subvalue> (. *value = *value && subvalue; .)
+  }
+.
+
+expr4<int * value> =                   (. int subvalue; .)
+  expr5<value> { "|" expr5<&subvalue>  (. *value |= subvalue; .)
+  }
+.
+
+expr5<int * value> =                   (. int subvalue; .)
+  expr6<value> { "^" expr6<&subvalue>  (. *value ^= subvalue; .)
+  }
+.
+
+expr6<int * value> =                   (. int subvalue; .)
+  expr7<value> { "&" expr7<&subvalue>  (. *value &= subvalue; .)
+  }
+.
+
+expr7<int * value> =    (. int op, subvalue; .)
+  expr8<value> { ("=="  (. op = 0; .)
+                | "!="  (. op = 1; .)
+  ) expr8<&subvalue>    (. if (op == 0) *value = *value == subvalue;
+    			   else if (op == 1) *value = *value != subvalue; .)
+  }
+.
+
+expr8<int * value> =    (. int op, subvalue; .)
+  expr9<value> { (">"   (. op = 0; .)
+               | ">="   (. op = 1; .)
+               | "<"    (. op = 2; .)
+               | "<="   (. op = 3; .)
+  ) expr9<&subvalue>    (. if (op == 0) *value = *value > subvalue;
+    			   else if (op == 1) *value = *value >= subvalue;
+    			   else if (op == 2) *value = *value < subvalue;
+    			   else if (op == 3) *value = *value <= subvalue; .)
+  }
+.
+
+expr9<int * value> =    (. int op, subvalue; .)
+  expr10<value> { ("<<" (. op = 0; .)
+                 | ">>" (. op = 1; .)
+  ) expr10<&subvalue>   (. if (op == 0) *value <<= subvalue;
+    			   else if (op == 1) *value >>= subvalue; .)
+  }
+.
+
+expr10<int * value> =  (. int op, subvalue; .)
+  expr11<value> { ("+" (. op = 0; .)
+                 | "-" (. op = 1; .)
+  ) expr11<&subvalue>  (. if (op == 0) *value += subvalue;
+                          else if (op == 1) *value -= subvalue; .)
+  }
+.
+
+expr11<int * value> =  (. int op, subvalue; .)
+  expr12<value> { ("*" (. op = 0; .)
+                 | "/" (. op = 1; .)
+                 | "%" (. op = 2; .)
+  ) expr12<&subvalue>  (. if (op == 0) *value *= subvalue;
+                          else if (op == 1) *value /= subvalue;
+                          else if (op == 2) *value %= subvalue; .)
+  }
+.
+
+expr12<int * value> =
+  number                 (. *value = atoi(self->t->val); .)
+  | '(' expr1<value> ')'
+.
+
+END CExpr.

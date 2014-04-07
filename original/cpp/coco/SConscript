@@ -1,0 +1,5 @@
+# -*- python -*-
+
+Import ('env')
+Coco=env.Program('coco', Glob('*.cpp'))
+Export('Coco')

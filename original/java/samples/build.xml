@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="rss" default="dist" basedir=".">
+
+  <target name="atg2java">
+    <dependset>
+      <srcfilelist files="rss.atg,../XmlScanner.frame"/>
+      <targetfilelist files="XmlScanner.java"/>
+    </dependset>
+    <dependset>
+      <srcfilelist files="rss.atg,../XmlParser.frame"/>
+      <targetfilelist files="XmlParser.java"/>
+    </dependset>
+    <java jar="../CocoXml.jar" fork="true">
+      <arg line="-frames .. -package rss rss.atg"/>
+    </java>
+  </target>
+
+  <target name="build" depends="atg2java">
+    <echo message="Building sample: rss..."/>
+    <javac sourcepath="." srcdir="." destdir="." source="5" target="5">
+      <include name="*.java"/>
+    </javac>
+  </target>
+
+  <target name="dist" depends="build">
+    <echo message="Generating rss.jar ..."/>
+    <jar destfile="rss.jar" basedir="." includes="rss/**/*.class"
+	 manifest="rss.manifest"/>
+  </target>
+
+  <target name="run" depends="dist">
+    <echo message="Run rss.jar ..."/>
+    <java jar="rss.jar" fork="true">
+      <arg line="rss.YahooNews.xml"/>
+    </java>
+  </target>
+
+</project>

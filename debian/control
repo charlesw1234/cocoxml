@@ -1,0 +1,12 @@
+Source: cocoxml
+Section: unknown
+Priority: extra
+Maintainer: Charles <charlesw12345@gmail.com>,Ken <kentoo.zhao@gmail.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: cocoxml
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: CocoXml
+ CocoXml is inspired by Coco/R and modified from it. 

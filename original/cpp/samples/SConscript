@@ -1,0 +1,18 @@
+# -*- python -*-
+# Author: Ken Zhao <kentoo.zhao@gmail.com>
+# License: GPLv2.
+import os.path
+
+Import('env')
+Import('CocoXml')
+Import('XmlScannerFrame', 'XmlParserFrame')
+
+env.Command(['XmlScanner.cxx', 'XmlScanner.hxx', 'XmlParser.cxx', 'XmlParser.hxx'], [CocoXml, 'rss.atg'],
+            './${SOURCES[0]} -frames ${SOURCES[0].srcdir} -namespace cocoxml ${SOURCES[1]}')
+
+env.Depends('XmlScanner.cxx', XmlScannerFrame)
+env.Depends('XmlScanner.hxx', XmlScannerFrame)
+env.Depends('XmlParser.cxx', XmlParserFrame)
+env.Depends('XmlParser.hxx', XmlParserFrame)
+
+env.Program('samples', Glob("*.cxx"), LIBS=['expat'])

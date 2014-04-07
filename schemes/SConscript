@@ -1,0 +1,18 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+import os.path
+
+Import('env')
+Import('cocosrc_libobjs')
+
+cocosrc_libobjs.extend(map(lambda src: env.Object(src),
+                           ['OutputScheme.c', 'CBaseOutputScheme.c',
+                            'CSharpBaseOutputScheme.c']))
+
+SConscript(os.path.join('c', 'SConscript'))
+SConscript(os.path.join('cxml', 'SConscript'))
+SConscript(os.path.join('csharp', 'SConscript'))
+SConscript(os.path.join('csharpxml', 'SConscript'))
+SConscript(os.path.join('dump', 'SConscript'))

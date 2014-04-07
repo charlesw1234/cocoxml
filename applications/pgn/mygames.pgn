@@ -1,0 +1,679 @@
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.25"]
+[Round "?"]
+[White "UNPREDICTABLE"]
+[Black "charlesw"]
+[WhiteElo "1214"]
+[BlackElo "1165"]
+[TimeControl "300+0"]
+[Result "1-0"]
+
+1. e4 e5 2. Bc4 Nf6 3. Nf3 h6 4. Nxe5 d5 5. exd5 Bd6 6. d4 O-O 7. O-O c5 
+8. dxc6 Nxc6 9. Nxc6 bxc6 10. c3 Qc7 11. Kh1 Bxh2 12. g3 Bxg3 13. fxg3 
+Qxg3 14. Qf3 Qh4+ 15. Kg2 Bg4 16. Qg3 Qh5 17. Rh1 Qf5 18. Bd3 Qd5+ 19. Kg1 
+Rae8 20. Bd2 Bf3 21. Rh2 Ng4 22. c4 Qxd4+ 23. Kf1 Qxd3+ 24. Kg1 Nxh2 25. Kxh2 
+Re2+ 26. Kh3 Bg2+ 27. Kh2 Qxg3+ 28. Kxg3 Rfe8 29. a4 Be4 30. Bc3 Bxb1 31. Rxb1 
+R8e3+ 32. Kf4 f6 33. Rf1 Kf7 34. Rf3 Rxf3+ 35. Kxf3 Rh2 36. Ke4 Rh5 37. Kd4 
+Ke6 38. c5 g5 39. Kc4 a6 40. Kb4 g4 41. Ka5 Rxc5+ 42. Kxa6 g3 43. a5 
+{charlesw forfeits on time} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.26"]
+[Round "?"]
+[White "charlesw"]
+[Black "QuantumChess"]
+[WhiteElo "1158"]
+[BlackElo "1287"]
+[TimeControl "600+0"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Qe7 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Qxe4+ 8. Qe2 Bxd2+ 9. Nbxd2 Qxe2+ 10. Bxe2 d6 11. Bc4 Bd7 12. Ng5 O-O-O 
+13. O-O Nh6 14. Bxf7 Nxf7 15. Nxf7 Rdf8 16. Nxh8 Rxh8 17. Nb3 h5 18. h3 
+g5 19. Rfe1 h4 20. d5 Ne5 21. a4 g4 22. hxg4 Bxg4 23. Nd4 Rg8 24. f4 Nd3 
+25. Re7 Bh3 26. Nb5 Rxg2+ 27. Kf1 Rg7+ 28. Ke2 Nxf4+ 29. Kf3 Rxe7 30. Kxf4 
+Bg2 31. Nxa7+ Kb8 32. Nb5 h3 33. Kg3 Rg7+ 34. Kh2 Rg5 35. Rc1 Rg7 36. b4 
+b6 37. a5 Kb7 38. axb6 Kxb6 39. Nd4 Rg4 40. Ne6 Rxb4 41. Nxc7 Kb7 42. Ne8 
+Rb6 43. Rc7+ Kb8 44. Rd7 Rb2 45. Rxd6 Bf1+ 46. Kg3 h2 47. Rh6 Rg2+ 48. Kf3 
+Rd2 49. d6 Bg2+ 50. Kg3 h1=Q 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.26"]
+[Round "?"]
+[White "Pleci"]
+[Black "charlesw"]
+[WhiteElo "1326"]
+[BlackElo "1153"]
+[TimeControl "600+0"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O h6 6. c3 Bc5 7. d4 exd4 
+8. cxd4 Ba7 9. Nc3 O-O 10. e5 Ne8 11. Be3 d6 12. h3 dxe5 13. d5 Ne7 14. Nxe5 
+Qd6 15. Nc4 Qg6 16. Bc2 Bf5 17. Bxf5 Nxf5 18. Bxa7 Rxa7 19. Ne5 Qd6 20. Re1 
+Nf6 21. Qd3 Ne7 22. Rad1 Rd8 23. Nc4 Qc5 24. d6 cxd6 25. Rxe7 d5 26. Rde1 
+Rd7 27. Rxd7 Nxd7 28. Re8+ Nf8 29. Qxd5 Qc7 30. Ne5 b6 
+{charlesw resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.26"]
+[Round "?"]
+[White "charlesw"]
+[Black "ogbornd"]
+[WhiteElo "1149"]
+[BlackElo "892"]
+[TimeControl "600+0"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nc3 Bc5 4. h3 d5 5. exd5 Nxd5 6. Bc4 Be6 7. Nxe5 
+Qf6 8. Qe2 Nc6 9. Nxc6 bxc6 10. O-O Bd6 11. Ne4 Qe5 12. Nxd6+ Qxd6 13. d4 
+O-O 14. Bd3 Nf4 15. Bxf4 Qxf4 16. Qh5 h6 17. Rfe1 Rae8 18. Re4 Qg5 19. Qxg5 
+hxg5 20. Re5 f6 21. Rc5 Bd7 22. a4 a5 23. Rb1 f5 24. b4 Rb8 25. b5 Rb6 
+26. Rb3 cxb5 27. Bxb5 Be6 28. Rbc3 Rb7 29. Rxc7 Rxc7 30. Rxc7 Rc8 31. Rxc8+ 
+Bxc8 32. c4 Kf7 33. d5 Ke7 34. f3 g6 35. g4 fxg4 36. fxg4 Kd6 37. Kf2 Kc5 
+38. Ke3 Kd6 39. Ke4 Bxg4 40. hxg4 Kc5 41. Ke5 Kb4 42. Kf6 Kc5 43. Kxg6 
+Kd4 44. Kxg5 Ke5 45. Kh6 Kd6 46. g5 Ke7 47. Kh7 Kf7 48. g6+ Kf8 49. g7+ 
+{ogbornd resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.26"]
+[Round "?"]
+[White "charlesw"]
+[Black "jgknight"]
+[WhiteElo "1152"]
+[BlackElo "1131"]
+[TimeControl "120+12"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Bxd2+ 8. Nbxd2 O-O 9. O-O d5 10. exd5 Nxd5 11. h3 Be6 12. Qb3 Nb6 13. Bxe6 
+fxe6 14. Qxe6+ Kh8 15. Nb3 Re8 16. Qg4 g6 17. Rfe1 Rxe1+ 18. Rxe1 Qf8 19. Nc5 
+Rb8 20. Ne6 Qf7 21. Ne5 Nxe5 22. Rxe5 Nd7 23. Ra5 Nf6 24. Qe2 a6 25. d5 
+Re8 26. Qc4 c6 27. Ng5 Qe7 28. Kh2 Qe5+ 29. f4 Qf5 30. Nf7+ Kg7 31. Nd6 
+Qh5 32. Nxe8+ Nxe8 33. dxc6 Qxa5 34. cxb7 Qb6 35. Qc3+ Nf6 36. Qc8 Qxb2 
+37. b8=Q Qxb8 38. Qxb8 h5 39. Qa7+ Kh6 40. Qxa6 Ne4 41. Qd3 Nf2 42. Qf3 
+Ng4+ 43. hxg4 hxg4 44. Qxg4 Kh7 45. a4 Kh6 46. a5 g5 47. a6 gxf4 48. a7 
+f3 49. Qxf3 Kg5 50. a8=Q Kh6 51. Qaf8+ Kh7 52. Qh3+ Kg6 53. Qff5+ Kg7 54. Qhg4+ 
+Kh6 55. Qfh5# 
+{jgknight checkmated} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "charlesw"]
+[Black "chingching"]
+[WhiteElo "1160"]
+[BlackElo "1229"]
+[TimeControl "300+11"]
+[Result "1/2-1/2"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Nxe4 8. Bxb4 Nxb4 9. Nc3 d5 10. Nxe4 dxc4 11. O-O O-O 12. b3 cxb3 13. Qxb3 
+Nc6 14. Nc5 b6 15. Nd3 Nxd4 16. Qd1 Bg4 17. Nde5 Nxf3+ 18. Nxf3 Qxd1 19. Raxd1 
+Bxf3 20. gxf3 c5 21. Rd7 Rfe8 22. Rc1 Re2 23. Kg2 Rxa2 24. Rc4 g6 25. Re4 
+Rf8 26. Ree7 a6 27. Rb7 b5 28. Rec7 c4 29. Rc6 Ra8 30. f4 Rd2 31. Rcc7 
+Rdd8 32. Rxf7 Rdc8 33. Rg7+ Kf8 34. Rgf7+ Kg8 35. Rg7+ Kf8 36. Rgf7+ Ke8 
+37. Rfe7+ Kf8 38. Rf7+ 
+{Game drawn by repetition} 1/2-1/2
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "ShahMaster"]
+[Black "charlesw"]
+[WhiteElo "916"]
+[BlackElo "1162"]
+[TimeControl "120+10"]
+[Result "0-1"]
+
+1. g4 d5 2. Bg2 e5 3. c4 Bxg4 4. Bxd5 Nf6 5. Bxb7 Nbd7 6. Bxa8 Qxa8 7. h3 
+Qxh1 8. hxg4 Qxg1# 
+{ShahMaster checkmated} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "ochoo"]
+[Black "charlesw"]
+[WhiteElo "1146"]
+[BlackElo "1165"]
+[TimeControl "120+8"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 h6 5. Nxd4 Nxd4 6. Qxd4 Nf6 7. O-O 
+d6 8. e5 Nd7 9. exd6 Bxd6 10. Qxg7 Be5 11. Re1 Qf6 12. Qxf6 Nxf6 13. Rxe5+ 
+{charlesw resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "charlesw"]
+[Black "MacroMike"]
+[WhiteElo "1157"]
+[BlackElo "1323"]
+[TimeControl "120+8"]
+[Result "0-1"]
+
+1. e4 e6 2. d4 c5 3. c3 d5 4. e5 Nc6 5. Nf3 Qb6 6. Be2 Nge7 7. Nbd2 Nf5 
+8. Nb3 c4 9. Nbd2 Be7 10. O-O O-O 11. b3 cxb3 12. axb3 Qc7 13. Bb2 a6 14. c4 
+b5 15. cxd5 exd5 16. Bd3 g6 17. Ba3 b4 18. Bb2 a5 19. Re1 Be6 20. Nf1 Qb6 
+21. Bxf5 Bxf5 22. Ng3 Be6 23. Rc1 Rfc8 24. Qd2 a4 25. bxa4 Rxa4 26. Qh6 
+Bf8 27. Qh4 h6 28. Rc2 b3 29. Rd2 Bb4 30. Qxh6 Bxd2 31. Qxd2 Ra2 32. Qh6 
+Rxb2 33. Ng5 Nxd4 34. Qh7+ Kf8 35. Qh8+ Ke7 36. Qf6+ Kd7 37. Nxf7 Rf8 38. Qg7 
+Rxf7 39. Qxg6 Rbxf2 40. Rf1 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "Baffipapa"]
+[Black "charlesw"]
+[WhiteElo "803"]
+[BlackElo "1153"]
+[TimeControl "120+8"]
+[Result "0-1"]
+
+1. e4 e5 2. Bc4 Nf6 3. Nc3 Nc6 4. Nf3 h6 5. d4 exd4 6. Nxd4 Bc5 7. Be3 
+Nxd4 8. Bxd4 Bxd4 9. Qxd4 O-O 10. O-O-O d6 11. e5 Ng4 12. Ne4 Nxe5 13. f4 
+Nxc4 14. Qxc4 Bf5 15. Ng3 Be6 16. Nh5 Bxc4 17. b3 Be2 18. Rd2 Bxh5 19. h3 
+Qf6 20. Rf1 Qa1# 
+{Baffipapa checkmated} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "doriro"]
+[Black "charlesw"]
+[WhiteElo "1692"]
+[BlackElo "1155"]
+[TimeControl "120+8"]
+[Result "0-1"]
+
+1. Nf3 d5 2. d4 g6 3. b3 Bg7 4. Bb2 Bg4 5. c4 c6 6. e3 Nf6 7. Nc3 Nbd7 
+8. h3 Bxf3 9. Qxf3 Qa5 10. Bd3 O-O 11. O-O e5 12. cxd5 cxd5 13. dxe5 Nxe5 
+14. Qe2 Nxd3 15. Qxd3 Rac8 16. Rfd1 Rfd8 17. Ne2 Rc6 18. Nd4 Rcd6 19. a3 
+Ne4 20. b4 Qb6 21. Rac1 a5 22. Qb3 axb4 23. axb4 R6d7 24. Rc2 Ra8 25. Rdc1 
+Rdd8 26. f3 Ng3 27. Kf2 Nf5 28. Nxf5 Bxb2 29. Ne7+ Kf8 30. Nxg6+ hxg6 31. Qxb2 
+Re8 32. Qh8+ Ke7 33. Rc7+ Kd6 34. Qf6+ Re6 35. Qf4+ Re5 36. Rxf7 Re8 37. Rf6+ 
+Re6 38. Rxe6+ Kxe6 39. Rc8 Rf5 40. Qc7 Qxb4 41. Re8+ Kf6 42. Qe7+ Qxe7 
+{doriro resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "charlesw"]
+[Black "Boutje"]
+[WhiteElo "1170"]
+[BlackElo "833"]
+[TimeControl "120+8"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nc3 Qe7 4. Bc4 Nc6 5. Ng5 h6 6. Nxf7 Na5 7. Nxh8 
+Nxc4 8. d3 Nd6 9. Ng6 Qf7 10. Nxe5 Qe6 11. Nf3 Qg4 12. g3 Ndxe4 13. dxe4 
+Nxe4 14. Nxe4 Qxe4+ 15. Be3 b6 16. Qe2 Bb7 17. O-O-O O-O-O 18. Nd2 Qe6 
+19. Rhe1 c6 20. Kb1 g5 21. Nb3 Bg7 22. Bd4 Bxd4 23. Nxd4 Qf6 24. Qc4 b5 
+25. Nxb5 Ba6 26. Nd6+ Qxd6 27. Qxa6+ Kb8 28. Rxd6 h5 
+{Boutje resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "poupoune"]
+[Black "charlesw"]
+[WhiteElo "1293"]
+[BlackElo "1172"]
+[TimeControl "120+12"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Nxd4 d6 5. Be2 Nf6 6. Nc3 Be7 7. Nf5 
+O-O 8. Nxe7+ Qxe7 9. Bg5 h6 10. Bh4 Ne5 11. Nd5 Qe6 12. Nxf6+ gxf6 13. f4 
+Ng6 14. f5 Qxe4 15. fxg6 Qxh4+ 16. g3 Qe4 17. gxf7+ Rxf7 18. O-O Qe5 19. Bc4 
+Qc5+ 20. Rf2 Qxc4 21. Qh5 Rh7 22. Qe8+ Kg7 23. Raf1 Rh8 24. Qe7+ Kg8 25. Rxf6 
+Qd4+ 26. R1f2 Qd1+ 27. Kg2 Qd5+ 28. R6f3 Bg4 29. Qf6 Bxf3+ 30. Rxf3 Kh7 
+31. Qe7+ Kg6 32. Qf6+ Kh5 33. h3 Qd2+ 34. Rf2 Qd5+ 35. Kh2 Rhg8 36. Rf5+ 
+Qxf5 37. Qxf5+ Rg5 38. g4+ Kh4 39. Qf2# 
+{charlesw checkmated} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.27"]
+[Round "?"]
+[White "charlesw"]
+[Black "StigHoglund"]
+[WhiteElo "1167"]
+[BlackElo "1148"]
+[TimeControl "120+8"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 d6 3. Bc4 h6 4. d4 Nf6 5. dxe5 Nxe4 6. exd6 Nxd6 7. Bb3 
+Qe7+ 8. Be3 Bg4 9. Nbd2 Nc6 10. h3 Bxf3 11. Qxf3 O-O-O 12. O-O-O Kb8 13. Kb1 
+Ne5 14. Qh5 g6 15. Qh4 Qxh4 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.30"]
+[Round "?"]
+[White "charlesw"]
+[Black "wierdaj"]
+[WhiteElo "1159"]
+[BlackElo "1149"]
+[TimeControl "120+8"]
+[Result "0-1"]
+
+1. e4 c5 2. Nf3 Nc6 3. c3 d5 4. exd5 Qxd5 5. Be2 e5 6. d3 f6 7. O-O Nge7 
+8. h3 Ng6 9. c4 Qd8 10. Nc3 Be6 11. b3 Be7 12. Ne4 O-O 13. Ba3 Nf4 14. Bxc5 
+Nxe2+ 15. Qxe2 Bxc5 16. Nxc5 Bf5 17. Nh4 Nd4 18. Qh5 Qc8 19. Nxf5 Nxf5 
+20. Rfd1 g6 21. Qf3 Qxc5 22. Qxb7 Rf7 23. Qxa8+ Rf8 24. Qd5+ Qxd5 25. cxd5 
+Nd6 26. Rac1 Rd8 27. Rc7 Nb5 28. Rc5 Nd4 29. Rdc1 Ne2+ 30. Kf1 Nxc1 31. Rxc1 
+Rxd5 32. Ke2 Rd4 33. Rc7 a5 34. Ra7 e4 35. dxe4 Rxe4+ 36. Kd3 Re5 37. f4 
+Rd5+ 38. Kc3 Rc5+ 39. Kb2 h6 40. g4 f5 41. a4 fxg4 42. hxg4 h5 43. gxh5 
+gxh5 44. Ka3 h4 45. b4 Rc3+ 46. Kb2 axb4 47. Rb7 h3 48. Rxb4 Rf3 49. Rb5 
+Rxf4 50. Rh5 Rf2+ 51. Kc3 Ra2 52. Kb4 h2 53. Kb5 Kg7 54. a5 Kg6 55. Rh8 
+Kg7 56. Rh3 Kg6 57. a6 Kg5 58. Kb6 Kg4 59. Rh8 Kg3 60. Kb7 Kg2 61. a7 h1=Q 
+62. Rg8+ Kf3 63. a8=Q Rxa8 64. Kxa8 Ke3+ 65. Ka7 Qh7+ 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.30"]
+[Round "?"]
+[White "wierdaj"]
+[Black "charlesw"]
+[WhiteElo "1157"]
+[BlackElo "1151"]
+[TimeControl "120+12"]
+[Result "0-1"]
+
+1. d4 d5 2. c4 c6 3. Nc3 Nf6 4. Nf3 Bg4 5. e3 e6 6. cxd5 exd5 7. Be2 Bb4 
+8. Qc2 Qd7 9. Bd2 Bf5 10. Qb3 Bxc3 11. Bxc3 Ne4 12. Ne5 Qc7 13. f3 Nxc3 
+14. Qxc3 O-O 15. Bd3 Bxd3 16. Qxd3 Nd7 17. Ng4 Qb6 18. b3 Qa5+ 19. Ke2 
+Rfe8 20. Rhc1 Re6 21. Kf2 Rae8 22. a3 Qd8 23. Rc3 Nf8 24. Ne5 Ng6 25. Nxg6 
+Rxg6 26. e4 Qh4+ 27. Kg1 dxe4 28. fxe4 Rxe4 29. Rc4 Re1+ 30. Rxe1 Qxe1+ 
+31. Qf1 Qe3+ 32. Kh1 Qxb3 33. d5 h6 34. dxc6 Rxc6 35. Rxc6 bxc6 36. Qa1 
+a5 37. a4 c5 38. Kg1 c4 39. Kf2 c3 40. Ke2 Qb2+ 
+{wierdaj resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.30"]
+[Round "?"]
+[White "charlesw"]
+[Black "porfavor"]
+[WhiteElo "1159"]
+[BlackElo "1092"]
+[TimeControl "120+12"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Bxd2+ 8. Nbxd2 O-O 9. O-O Re8 10. e5 Ng4 11. h3 Nh6 12. Qc2 d6 13. Bd3 
+dxe5 14. Bxh7+ Kf8 15. Qc5+ Qd6 16. Qxd6+ cxd6 17. dxe5 g6 18. exd6 Bd7 
+19. Ne4 Kg7 20. Rfd1 Rxe4 21. Ng5 Re5 22. h4 Nf5 23. g3 Nfd4 24. Kg2 Rxg5 
+25. hxg5 Kxh7 26. Rh1+ Kg7 27. Rh4 Nf5 28. Rh2 Ne5 29. Rd1 Nc4 30. Rdh1 
+Bc6+ 31. f3 Nce3+ 32. Kf2 Rg8 33. Rh7+ Kf8 34. g4 Nxg4+ 35. fxg4 Bxh1 36. Rxh1 
+Nxd6 37. Rd1 Ke7 38. Kf3 Rc8 39. Rd2 Nb5 40. Kf4 a6 41. Ke5 Rc5+ 42. Kf4 
+Rc4+ 43. Ke5 Rxg4 44. Kd5 Rxg5+ 45. Kc4 b6 46. a4 Nd6+ 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.30"]
+[Round "?"]
+[White "porfavor"]
+[Black "charlesw"]
+[WhiteElo "1102"]
+[BlackElo "1149"]
+[TimeControl "120+12"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 bxc6 5. O-O Nf6 6. Re1 Bd6 7. d4 
+Qe7 8. Bg5 O-O 9. Nc3 h6 10. Bh4 g5 11. Bg3 Bb4 12. Qd3 d6 13. a3 Ba5 14. b4 
+Bb6 15. Kh1 Rd8 16. Qf1 Bg4 17. Qd3 Qf8 18. d5 cxd5 19. Nxd5 Nxd5 20. exd5 
+Qe8 21. h3 Bh5 22. Nd2 Bg6 23. Qc4 Qa4 24. Nb3 a5 25. Re4 axb4 26. Qxb4 
+Bxe4 27. Qxa4 Rxa4 28. f3 Bxd5 29. Nd2 Rda8 30. c4 Be6 31. h4 Rxa3 32. Rxa3 
+Rxa3 33. hxg5 hxg5 34. Ne4 Be3 35. c5 Bxc5 36. Nxg5 Be3 37. Nxe6 fxe6 38. Kh2 
+Kg7 39. Kh3 Kg6 40. Kg4 c5 41. Bh4 Ra4+ 42. Kg3 Rxh4 43. Kxh4 c4 44. Kg3 
+c3 45. f4 exf4+ 46. Kf3 c2 47. g4 c1=Q 48. g5 Qf1+ 49. Ke4 Qb1+ 50. Kf3 
+d5 51. Kg4 d4 52. Kf3 d3 53. Ke4 d2+ 54. Ke5 d1=Q 55. Kxe6 Qdb3+ 56. Kd6 
+Q1d3+ 
+{porfavor resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.06.30"]
+[Round "?"]
+[White "charlesw"]
+[Black "fighterf"]
+[WhiteElo "1156"]
+[BlackElo "1309"]
+[TimeControl "120+8"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nf6 3. Bc4 Bc5 4. Nxe5 O-O 5. d3 d5 6. exd5 Re8 7. d4 Nxd5 
+8. O-O Bb6 9. Qf3 f6 10. Bxd5+ Be6 11. Bxe6+ Rxe6 12. Nd3 Bxd4 13. Qxb7 
+Nc6 14. Qb3 Qe7 15. Nf4 
+{fighterf resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "kurosawa"]
+[Black "charlesw"]
+[WhiteElo "1262"]
+[BlackElo "1167"]
+[TimeControl "120+6"]
+[Result "1/2-1/2"]
+
+1. e4 e5 2. Qh5 Nc6 3. Bc4 Qe7 4. Ne2 Nf6 5. Qf3 d6 6. h3 a6 7. d3 Be6 
+8. Nbc3 Bxc4 9. dxc4 O-O-O 10. Bg5 h6 11. Nd5 Qe6 12. Bxf6 gxf6 13. Qxf6 
+Be7 14. Nxe7+ Nxe7 15. Qxe6+ fxe6 16. O-O-O Rdf8 17. f3 Rhg8 18. Rhg1 Nc6 
+19. c3 Na5 20. b3 Nc6 21. b4 Ne7 22. Rdf1 Rg7 23. f4 exf4 24. Rxf4 Rgf7 
+25. Rgf1 Rxf4 26. Rxf4 Rxf4 27. Nxf4 Kd7 28. Kd2 e5 29. Nd5 Ng6 30. g4 
+c6 31. Nf6+ Ke6 32. Ng8 Nf4 33. h4 h5 34. gxh5 Nxh5 35. Nh6 Nf4 36. Nf5 
+d5 37. cxd5+ cxd5 38. Ng3 dxe4 39. Nxe4 b6 40. c4 Kf5 41. Nd6+ Kg4 42. c5 
+bxc5 43. bxc5 Kxh4 44. c6 Ne6 45. Nf7 Kg4 46. Nxe5+ Kf5 47. Nd3 Ke4 48. Kc3 
+Kd5 49. Nb4+ Kc5 50. Nxa6+ Kxc6 51. Kb4 Nd4 52. a4 Kb6 53. Nb8 Kb7 54. Nd7 
+Kc7 55. Nc5 Kb6 56. Nb3 Nc6+ 57. Kc4 Ne5+ 
+{Game drawn by mutual agreement} 1/2-1/2
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "charlesw"]
+[Black "gwfhegel"]
+[WhiteElo "1169"]
+[BlackElo "1209"]
+[TimeControl "300+2"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. b3 Nxc4 7. bxc4 
+Nxd5 8. d4 Nf4 9. Bxf4 exf4 10. Nf3 Bg4 11. h3 Bh5 12. Nbd2 Bb4 13. Rc1 
+Bxf3 14. Qxf3 Qxd4 15. c3 Qe5+ 16. Qe4 Bd6 17. O-O Qxe4 18. Nxe4 O-O 19. Nxd6 
+cxd6 20. Rfd1 Rfd8 21. Rd4 Rac8 22. Rcd1 g5 23. g3 fxg3 24. fxg3 h6 25. Kg2 
+Kg7 26. Kf3 f6 27. Kg4 Rc5 28. Kf3 Kf7 29. Rxd6 Rxd6 30. Rxd6 Rxc4 31. Rd7+ 
+Ke6 32. Rxb7 Rxc3+ 33. Kg4 f5+ 34. Kh5 Rxg3 35. Rxa7 Rxh3+ 36. Kg6 f4 37. Ra6+ 
+Ke5 38. Ra5+ Ke4 39. Ra4+ Kf3 40. Ra3+ Kg2 41. Ra8 f3 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "gwfhegel"]
+[Black "charlesw"]
+[WhiteElo "1216"]
+[BlackElo "1162"]
+[TimeControl "120+12"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 h6 5. c3 Bc5 6. cxd4 Bb6 7. Nc3 Nge7 
+8. d5 Na5 9. Bd3 Bc5 10. a3 b6 11. b4 Bd4 12. Qc2 Bxc3+ 13. Qxc3 Nb7 14. Qxg7 
+Rg8 15. Qxh6 Rxg2 16. Bg5 
+{charlesw resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "aschi"]
+[Black "charlesw"]
+[WhiteElo "1289"]
+[BlackElo "1155"]
+[TimeControl "120+12"]
+[Result "0-1"]
+
+1. e4 e5 2. f4 d6 3. Nf3 Nc6 4. Bc4 h6 5. O-O Bg4 6. fxe5 Nxe5 7. Be2 Nf6 
+8. Nc3 Qd7 9. d4 Nxf3+ 10. Bxf3 O-O-O 11. e5 dxe5 12. d5 Bxf3 13. Qxf3 
+Nxd5 14. Nxd5 Qxd5 15. Qxd5 Rxd5 16. Rxf7 Bc5+ 17. Kf1 Rf8 18. Rxf8+ Bxf8 
+19. Be3 Bc5 20. Bxc5 Rxc5 21. c3 Kd7 22. Rd1+ Ke6 23. Rd8 Kf5 24. Rd7 g5 
+25. Rh7 Kg6 26. Re7 a5 27. Ke2 Kf6 28. Re8 b5 29. Ke3 b4 30. cxb4 axb4 
+31. Rh8 Kg7 32. Re8 Rc2 33. Rxe5 Rxb2 34. Re7+ Kg6 35. Rxc7 Rxa2 36. Rc6+ 
+Kh5 37. Rb6 Rxg2 38. h3 Rg3+ 39. Kf2 Rxh3 40. Rxb4 Rh4 41. Rb3 Rg4 42. Rb5 
+Kh4 43. Rb1 Rg3 44. Rh1+ Rh3 45. Rg1 g4 46. Re1 h5 47. Re4 Rh2+ 48. Kg1 
+Ra2 49. Re3 g3 50. Re4+ Kh3 51. Re5 Ra1+ 
+{aschi resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "charlesw"]
+[Black "KedarDesai"]
+[WhiteElo "1166"]
+[BlackElo "1343"]
+[TimeControl "120+12"]
+[Result "1-0"]
+
+1. e4 c5 2. Nf3 Nc6 3. c3 d6 4. d4 cxd4 5. cxd4 d5 6. e5 Bg4 7. h3 Bxf3 
+8. Qxf3 e6 9. Be3 Bb4+ 10. Nc3 Nge7 11. a3 Bxc3+ 12. bxc3 Qa5 13. Bd2 Qc7 
+14. Be2 O-O 15. O-O b6 16. Qg4 f5 17. Qg3 Rac8 18. Bh6 Rf7 19. Bh5 g6 20. Be2 
+Na5 21. Bg5 Qxc3 22. Qh4 Qb2 23. Bxe7 Qxe2 24. Rfe1 Qb5 25. a4 Qd7 26. Bf6 
+Rc4 27. Qf4 Rf8 28. Rec1 Rfc8 29. Bg5 Rxc1+ 30. Rxc1 Rxc1+ 31. Qxc1 Qc6 
+32. Qa3 Qd7 33. Bh6 Qe8 34. Qd6 Nc4 35. Qc7 
+{KedarDesai resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "Sfera"]
+[Black "charlesw"]
+[WhiteElo "1594"]
+[BlackElo "1591"]
+[TimeControl "900+0"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Nxd4 d6 5. Nxc6 bxc6 6. Nc3 g6 7. Bc4 
+Bg7 8. O-O Ne7 9. Bg5 O-O 10. Qf3 Qd7 11. Bf6 Bb7 12. Rad1 Rae8 13. Bxg7 
+Kxg7 14. Ne2 d5 15. exd5 cxd5 16. Bb3 c6 17. Qc3+ Kg8 18. Qd2 Qe6 19. Rde1 
+Qf6 20. Ng3 Qxb2 21. Qh6 Qg7 22. Qe3 d4 23. Qf4 c5 24. Qc7 Bd5 25. Ba4 
+Bxa2 26. Bxe8 Nd5 27. Qxa7 Bc4 28. Qxc5 Bxf1 29. Nxf1 Nc3 30. Bb5 Rd8 31. Re8+ 
+Rxe8 32. Bxe8 Ne2+ 33. Kh1 d3 34. cxd3 Qa1 35. Bxf7+ Kg7 36. Qe5+ Qxe5 
+37. Bc4 Nf4 38. g3 Nd5 39. Bxd5 Qxd5+ 40. Kg1 Qxd3 41. Ne3 h5 42. h4 Kh6 
+43. Kg2 g5 44. hxg5+ Kxg5 45. Kh3 Qd7+ 46. Kg2 Qb7+ 47. Kf1 h4 48. gxh4+ 
+Kxh4 49. Ke2 Kg5 50. Kf1 Kf4 51. Ke2 Qb2+ 52. Kf1 Kf3 53. Kg1 Qxf2+ 54. Kh1 
+Qxe3 55. Kh2 Qg5 56. Kh1 Qg2# 
+{Sfera checkmated} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.01"]
+[Round "?"]
+[White "charlesw"]
+[Black "Sfera"]
+[WhiteElo "1709"]
+[BlackElo "1586"]
+[TimeControl "900+0"]
+[Result "0-1"]
+
+1. e4 d5 2. exd5 Qxd5 3. Nc3 Qd8 4. d4 e6 5. Nf3 Nf6 6. Bg5 Be7 7. Bd3 
+c6 8. O-O Nd5 9. Bxe7 Qxe7 10. Qd2 Nd7 11. Nxd5 cxd5 12. Ng5 Nf6 13. Rfe1 
+h6 14. Nf3 a6 15. c4 O-O 16. cxd5 Nxd5 17. Ne5 f6 18. Ng6 Qb4 19. Qc2 Rf7 
+20. a3 Qxd4 21. Re4 Qb6 22. Rc4 Rc7 23. Rxc7 Nxc7 24. Rc1 Qd6 25. Be2 Nd5 
+26. Nh4 Bd7 27. Qd2 Bc6 28. Bf3 Rd8 29. Qe2 Nf4 30. Qe3 Bxf3 31. Qxf3 Qd2 
+32. Rf1 Rc8 33. Qxb7 Rc1 34. Nf3 Ne2+ 35. Kh1 Rxf1+ 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.02"]
+[Round "?"]
+[White "charlesw"]
+[Black "kenro"]
+[WhiteElo "1178"]
+[BlackElo "1442"]
+[TimeControl "120+12"]
+[Result "0-1"]
+
+1. e4 e6 2. d4 d5 3. exd5 exd5 4. Nc3 Bb4 5. Bd2 Nc6 6. Nf3 Bg4 7. Be2 
+Bxf3 8. Bxf3 Nxd4 9. O-O Nxf3+ 10. Qxf3 Ne7 11. Qg3 O-O 12. a3 Bd6 13. Qg4 
+c6 14. Bh6 Ng6 15. Ne2 gxh6 16. Rfe1 Qc7 17. h3 Kh8 18. Nd4 Rg8 19. Qd1 
+Nf4 20. Nf5 Be5 21. Nxh6 Rxg2+ 22. Kh1 Rg6 23. Ng4 Nxh3 24. f3 Rxg4 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.02"]
+[Round "?"]
+[White "Nadante"]
+[Black "charlesw"]
+[WhiteElo "1265"]
+[BlackElo "1175"]
+[TimeControl "120+12"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 bxc6 5. O-O d6 6. d4 Bg4 7. c3 Nf6 
+8. Re1 Be7 9. Be3 O-O 10. Nbd2 h6 11. Qc2 Rb8 12. Nh4 Qd7 13. f3 Bh5 14. Nf5 
+Rb7 15. Nf1 Rfb8 16. b3 Bg6 17. Nxh6+ gxh6 18. Bxh6 Bf8 19. Bg5 Bg7 20. Qd2 
+Rb5 21. c4 Rb4 22. dxe5 dxe5 23. Qc3 Qe7 24. Rad1 R4b6 25. Rd3 Qa3 26. Qxe5 
+Nh7 27. Qxc7 Qxa2 28. Rd8+ Bf8 29. Rxb8 Rxb8 30. Qxb8 Nxg5 31. Rd1 Ne6 
+32. Ne3 Kg7 33. f4 Bxe4 34. Qe5+ Kg8 35. Qxe4 Qxb3 36. f5 Ng5 37. Qg4 Qxe3+ 
+38. Kh1 f6 39. h4 Qe4 40. Qg3 Bh6 41. hxg5 Bxg5 42. Rd8+ Kg7 43. Qc7+ Kh6 
+44. Rh8# 
+{charlesw checkmated} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.02"]
+[Round "?"]
+[White "charlesw"]
+[Black "chingching"]
+[WhiteElo "1169"]
+[BlackElo "1303"]
+[TimeControl "300+11"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Nxe4 8. Bxb4 Nxb4 9. Nc3 d5 10. Bb3 Nxc3 11. bxc3 Nc6 12. h3 O-O 13. O-O 
+Be6 14. Qd3 Qf6 15. Bc2 g6 16. Qb5 Rab8 17. Rfe1 Bxh3 18. Ne5 Nxe5 19. Rxe5 
+Be6 20. Qc5 c6 21. Qxa7 Qf4 22. Rb1 Qd2 23. Ba4 Qxc3 24. Rxb7 Rxb7 25. Qxb7 
+Qxd4 26. Rxe6 fxe6 27. Bxc6 Qxf2+ 28. Kh2 Qxa2 29. Qd7 Qe2 30. Bb5 Qe5+ 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.02"]
+[Round "?"]
+[White "charlesw"]
+[Black "chingching"]
+[WhiteElo "1164"]
+[BlackElo "1293"]
+[TimeControl "300+11"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Nxe4 8. Bxb4 Nxb4 9. O-O d5 10. Bb3 O-O 11. Nc3 Bg4 12. h3 Bh5 13. a3 Nxc3 
+14. bxc3 Nc6 15. Qd3 Bxf3 16. Qxf3 Ne7 17. Bc2 c6 18. Rab1 b6 19. Qh5 g6 
+20. Qh6 Qd7 21. Rfe1 Nf5 22. Bxf5 Qxf5 23. Re7 Qxb1+ 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.02"]
+[Round "?"]
+[White "Razza"]
+[Black "charlesw"]
+[WhiteElo "1179"]
+[BlackElo "1159"]
+[TimeControl "420+7"]
+[Result "1-0"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. cxd4 Bb4+ 7. Bd2 
+Bxd2+ 8. Nbxd2 O-O 9. O-O d6 10. Ng5 Na5 11. Bxf7+ Rxf7 12. Nxf7 Kxf7 13. e5 
+dxe5 14. dxe5 Ne8 15. e6+ Bxe6 16. Qh5+ Kg8 17. Qxa5 b6 18. Qc3 Nd6 19. Nf3 
+Nb5 20. Qe5 Bc4 21. Rfd1 Qe8 22. Qg5 Nd6 23. b3 Ba6 24. Re1 Qf7 25. Ne5 
+Qd5 26. Rad1 Qb7 27. Nd7 Kh8 28. Re7 g6 29. Qf6+ 
+{charlesw resigns} 1-0
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.05"]
+[Round "?"]
+[White "charlesw"]
+[Black "alfmin"]
+[WhiteElo "1151"]
+[BlackElo "1203"]
+[TimeControl "120+12"]
+[Result "1/2-1/2"]
+
+1. e4 Nc6 2. Nf3 d6 3. d4 Bg4 4. h3 Bh5 5. c3 Nf6 6. e5 dxe5 7. Be2 exd4 
+8. Nxd4 Bxe2 9. Qxe2 Nxd4 10. cxd4 Qxd4 11. O-O Qe4 12. Qb5+ Qc6 13. Nc3 
+Qxb5 14. Nxb5 Nd5 15. Be3 b6 16. Rfd1 c6 17. Nd4 Nxe3 18. fxe3 c5 19. Nb5 
+Rc8 20. Nxa7 Rc7 21. Nb5 Rb7 22. Rd2 e6 23. Rad1 Be7 24. Nd6+ Bxd6 25. Rxd6 
+O-O 26. Kf2 h6 27. g4 Ra8 28. a3 b5 29. Rc6 c4 30. Kf3 Rf8 31. Kf4 g5+ 
+32. Ke5 Kg7 33. Rdd6 Rh8 34. Rb6 Rxb6 35. Rxb6 f6+ 36. Kd4 Rd8+ 37. Kc5 
+Rd5+ 38. Kb4 Re5 39. Rxb5 Rxe3 40. Kxc4 Rxh3 41. a4 e5 42. a5 Rh1 43. Kb4 
+e4 44. a6 e3 45. a7 Ra1 46. Ra5 Rxa5 47. Kxa5 e2 48. a8=Q e1=Q+ 49. Kb5 
+Qf1+ 50. Kb4 Qf4+ 51. Kb3 Qe3+ 52. Ka2 Qe6+ 53. Ka1 
+{Game drawn by mutual agreement} 1/2-1/2
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.10"]
+[Round "?"]
+[White "charlesw"]
+[Black "criololoco"]
+[WhiteElo "1152"]
+[BlackElo "1195"]
+[TimeControl "180+12"]
+[Result "0-1"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 Nc6 5. Nc3 a6 6. a3 Qc7 7. Nf3 Bd6 
+8. Be2 Ne5 9. Bf4 Nxf3+ 10. Bxf3 Bxf4 11. Qd4 Be5 12. Qd3 b5 13. Na2 Bxb2 
+14. Rb1 Be5 15. Nb4 Bb7 16. Qb3 Qc3+ 17. Qxc3 Bxc3+ 18. Ke2 Bxb4 19. Rxb4 
+Ne7 20. Rd1 Bc6 21. c4 bxc4 22. Rxc4 Bb5 
+{charlesw resigns} 0-1
+
+[Event "ICS Rated Chess Match"]
+[Site "?"]
+[Date "2008.07.10"]
+[Round "?"]
+[White "criololoco"]
+[Black "charlesw"]
+[WhiteElo "1202"]
+[BlackElo "1145"]
+[TimeControl "120+12"]
+[Result "1/2-1/2"]
+
+1. e4 e5 2. Nf3 Nc6 3. d3 Nf6 4. Bg5 h6 5. Bh4 Be7 6. Nc3 d5 7. exd5 Nxd5 
+8. Bxe7 Ncxe7 9. Nxe5 Nxc3 10. bxc3 Qd5 11. Nf3 Bg4 12. Be2 O-O 13. O-O 
+Qc5 14. c4 Nc6 15. c3 Rfe8 16. d4 Qf5 17. Re1 Rad8 18. Nh4 Qg5 19. Bxg4 
+Rxe1+ 20. Qxe1 Qxg4 21. Nf3 Rd6 22. Qd2 Rf6 23. Re1 Rxf3 24. Re8+ Kh7 25. Qc2+ 
+Rf5 26. h3 Qg6 27. Qe2 Rf6 28. Qb2 Na5 29. Qb5 b6 30. c5 Qf5 31. f3 Re6 
+32. Rxe6 Qxe6 33. cxb6 axb6 34. a4 Qe1+ 35. Kh2 Qxc3 36. Qf5+ Kg8 37. Qc8+ 
+Kh7 38. Qf5+ g6 39. Qxf7+ Kh8 40. Qf8+ Kh7 41. Qf7+ Kh8 42. Qf8+ Kh7 43. Qf7+ 
+Kh8 
+{Game drawn by repetition} 1/2-1/2
+
+[Event "ICS Unrated Chess Match"]
+[Site "?"]
+[Date "2008.07.13"]
+[Round "?"]
+[White "Mandrakerr"]
+[Black "charlesw"]
+[WhiteElo "1132"]
+[BlackElo "1146"]
+[TimeControl "360+2"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. h3 Bd6 6. Nc3 Nf6 7. d3 h6 
+8. O-O O-O 9. Be3 Be6 10. Qd2 Kh7 11. Nh2 Qd7 12. f4 exf4 13. Bxf4 Bxh3 
+14. e5 Bc5+ 15. Be3 Bxe3+ 16. Qxe3 Nd5 17. Qe4+ f5 18. exf6+ Bf5 19. Qxf5+ 
+Qxf5 20. Rf2 
+{Mandrakerr resigns} 0-1
+

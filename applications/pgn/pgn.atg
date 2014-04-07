@@ -1,0 +1,143 @@
+SECTION license
+/*-------------------------------------------------------------------------
+pgn.atg -- atg for chess pgn file
+Copyright (C) 2008, Charles Wang <charlesw123456@gmail.com>
+Author: Charles Wang <charlesw123456@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it 
+ under the terms of the GNU General Public License as published by the 
+ Free Software Foundation; either version 2, or (at your option) any 
+ later version.
+
+ This program is distributed in the hope that it will be useful, but 
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+ for more details.
+
+ You should have received a copy of the GNU General Public License along 
+ with this program; if not, write to the Free Software Foundation, Inc., 
+ 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+-------------------------------------------------------------------------*/
+END.
+
+SCHEME c Pgn
+
+SECTION hIncludes
+#ifndef   COCO_PGNGAME_H
+#include  "pgngame.h"
+#endif
+END.
+
+SECTION cIncludes
+END.
+
+COMPILER Pgn
+
+MEMBERS
+    PgnGame_t * firstGame;
+    PgnGame_t * lastGame;
+
+CONSTRUCTOR
+    self->firstGame = self->lastGame = NULL;
+
+DESTRUCTOR
+    PgnGame_t * cur, * next;
+    for (cur = self->firstGame; cur; cur = next) {
+        next = cur->next;
+	PgnGame_Destruct(cur);
+    }
+
+CHARACTERS
+    piece     = "KQRBN".
+    row       = "12345678".
+    col       = "abcdefgh".
+    letter    = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_".
+    digit     = "0123456789".
+    cr        = '\r'.
+    lf        = '\n'.
+    tab       = '\t'.
+    stringCh  = ANY - '"' - '\\' - cr - lf.
+    resultCh  = ANY - '}' - '\\' - cr - lf.
+    printable =  '\x20' .. '\x7e'.
+
+TOKENS
+    number    = digit { digit }.
+    string    = '"' { stringCh | '\\' printable } '"'.
+    result    = '{' { resultCh | '\\' printable } '}'.
+    basemove  = [piece] [col] [row] ['x'] col row [ '=' piece ] ['#' | { '+' } | { '?' } | { '!' }].
+    castling  = "O-O" ['#' | { '+' } | { '?' } | { '!' }].
+    castlingL = "O-O-O" ['#' | { '+' } | { '?' } | { '!' }].
+
+IGNORE cr + lf + tab
+
+PRODUCTIONS
+
+Pgn = (. PgnGame_t * game; .)
+  { Game<&game> (. if (self->lastGame) { self->lastGame->next = game; self->lastGame = game; }
+                   else { self->firstGame = self->lastGame = game; } .)
+  }
+.
+
+Game<PgnGame_t ** game> = (. int index = -1; char * values[10];
+	       	  	     memset(values, 0, sizeof(values)); .)
+  { '[' ( "Event"         (. index = 0; .)
+    | "Site"              (. index = 1; .)
+    | "Date"              (. index = 2; .)
+    | "Round"             (. index = 3; .)
+    | "White"             (. index = 4; .)
+    | "Black"             (. index = 5; .)
+    | "WhiteElo"          (. index = 6; .)
+    | "BlackElo"          (. index = 7; .)
+    | "TimeControl"       (. index = 8; .)
+    | "Result"            (. index = 9; .)
+    ) string              (. CcsAssert(index >= 0 && index < sizeof(values) / sizeof(values[0]));
+      			     if (!values[index]) values[index] = CcsStrdup(self->t->val); .)
+    ']' }
+                          (. *game = PgnGame(&PgnStandardStart,
+					     values[0], values[1], values[2], values[3], values[4],
+			     	     	     values[5], values[6], values[7], values[8]);
+			     if (!(*game)->Result && values[9]) {
+			         (*game)->Result = values[9]; values[9] = NULL;
+			     }
+			     for (index = 0; index < sizeof(values) / sizeof(values[0]); ++index)
+			         if (values[index]) { CcsFree(values[index]); values[index] = NULL; } .)
+ { ARound<*game>
+  } result                (. if (!(*game)->resultInfo)
+    			        (*game)->resultInfo = CcsStrdup(self->t->val); .)
+  ResultStr<&values[9]>   (. if (!(*game)->Result && values[9]) {
+			         (*game)->Result = values[9]; values[9] = NULL;
+			     }
+			     if (values[9]) CcsFree(values[9]); .)
+.
+
+ARound<PgnGame_t * game> = (. PgnMove_t * move; .)
+  number
+  '.' Move<&move, TRUE>   (. if (!PgnGame_AppendMove(game, move)) {
+      		  	         PgnParser_SemErr(self, self->t,
+				 		  "Invalid move '%s' encountered or not enough memory.",
+						  move->value);
+				 PgnMove_Destruct(move);
+			     } .)
+  [ Move<&move, FALSE>    (. if (!PgnGame_AppendMove(game, move)) {
+    			         fprintf(stderr, "Error: %s\n", move->value);
+    			         PgnParser_SemErr(self, self->t,
+				 		  "Invalid move '%s' encountered or not enough memory.",
+						  move->value);
+				 PgnMove_Destruct(move);
+			     } .)
+  ]
+.
+
+Move<PgnMove_t ** move, CcsBool_t WhiteOrNot> =
+  basemove           (. *move = PgnMove(WhiteOrNot, self->t->val); .)
+  | castling         (. *move = PgnMove(WhiteOrNot, self->t->val); .)
+  | castlingL        (. *move = PgnMove(WhiteOrNot, self->t->val); .)
+.
+
+ResultStr<char ** Result> =
+  "1-0"          (. *Result = CcsStrdup(self->t->val); .)
+  | "1/2-1/2"    (. *Result = CcsStrdup(self->t->val); .)
+  | "0-1"        (. *Result = CcsStrdup(self->t->val); .)
+.
+
+END Pgn.

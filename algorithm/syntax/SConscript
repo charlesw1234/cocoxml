@@ -1,0 +1,8 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+Import('env')
+Import('cocosrc_libobjs')
+
+cocosrc_libobjs.extend(map(lambda src: env.Object(src), ['Nodes.c']))

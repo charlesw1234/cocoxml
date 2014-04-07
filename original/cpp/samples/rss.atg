@@ -1,0 +1,209 @@
+/*-------------------------------------------------------------------------
+rss.atg -- RSS(Really Simple Syndication) Grammer
+Copyright (c) 2008 Charles Wang <charlesw123456@gmail.com>
+
+This program is free software; you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by the 
+Free Software Foundation; either version 2, or (at your option) any 
+later version.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+for more details.
+
+You should have received a copy of the GNU General Public License along 
+with this program; if not, write to the Free Software Foundation, Inc., 
+59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------
+ compile with:
+   CocoXml rss.atg
+-------------------------------------------------------------------------*/
+
+#include "RSSData.hxx"
+
+COMPILER Rss
+    RssClass *rss;
+
+/*-------------------------------------------------------------------------*/
+OPTIONS TEXT
+
+TAGS
+    RSS = "rss"
+    CHANNEL = "channel"
+    ITEM = "item"
+    TITLE = "title"
+    LINK = "link"
+    DESCRIPTION = "description"
+    LANGUAGE = "language"
+    COPYRIGHT = "copyright"
+    MANAGING_EDITOR = "managingEditor"
+    WEB_MASTER = "webMaster"
+    PUB_DATE = "pubDate"
+    LAST_BUILD_DATE = "lastBuildDate"
+    CATEGORY = "category"
+    GENERATOR = "generator"
+    DOCS = "docs"
+    CLOUD = "cloud"
+    TTL = "ttl"
+    IMAGE = "image"
+    RATING = "rating"
+    TEXT_INPUT = "textInput"
+    NAME = "name"
+    SKIP_HOURS = "skipHours"
+    SKIP_DAYS = "skipDays"
+    URL = "url"
+    WIDTH = "width"
+    HEIGHT = "height"
+    AUTHOR = "author"
+    COMMENTS = "comments"
+    ENCLOSURE = "enclosure"
+    GUID = "guid"
+    SOURCE = "source"
+
+ATTRS
+    ATTR_DOMAIN = "domain"
+    ATTR_PORT = "port"
+    ATTR_PATH = "path"
+    ATTR_REGISTER_PROCEDURE = "registerProcedure"
+    ATTR_PROTOCOL = "protocol"
+
+/*-------------------------------------------------------------------------*/
+PRODUCTIONS
+
+Rss = (. ChannelClass *channel; rss = new RssClass(); .)
+    RSS {
+    Channel<.channel.> (. rss->AddChannel(channel); .)
+    } END_RSS.
+
+Channel<.ChannelClass* &channel.> = (. channel = new ChannelClass(); .)
+    CHANNEL { ChannelProperty<channel> } END_CHANNEL.
+
+ChannelProperty<ChannelClass *channel>  (. char* value;
+                         CloudClass *cloud;
+                     ImageClass *image;
+                     TextInputClass *textInput;
+                     ItemClass *item; .) =
+    Title<.value.>            (. channel->title = value; .)
+    | Link<.value.>           (. channel->link = value; .)
+    | Description<.value.>    (. channel->description = value; .)
+    | Language<.value.>       (. channel->language = value; .)
+    | Copyright<.value.>      (. channel->copyright = value; .)
+    | ManagingEditor<.value.> (. channel->managingEditor = value; .)
+    | WebMaster<.value.>      (. channel->webMaster = value; .)
+    | PubDate<.value.>        (. channel->pubDate = value; .)
+    | LastBuildDate<.value.>  (. channel->lastBuildDate = value; .)
+    | Category<.value.>       (. channel->category = value; .)
+    | Generator<.value.>      (. channel->generator = value; .)
+    | Docs<.value.>           (. channel->docs = value; .)
+    | Cloud<.cloud.>          (. channel->cloud = cloud; .)
+    | Ttl<.value.>            (. channel->ttl = value; .)
+    | Image<.image.>          (. channel->image = image; .)
+    | Rating<.value.>         (. channel->rating = value; .)
+    | TextInput<.textInput.>  (. channel->textInput = textInput; .)
+    | SkipHours<.value.>      (. channel->skipHours = value; .)
+    | SkipDays<.value.>       (. channel->skipDays = value; .)
+    | Item<.item.>            (. channel->AddItem(item); .)
+.
+
+Cloud<.CloudClass* &cloud.> = (. cloud = new CloudClass(); .)
+    CLOUD
+    { ATTR_DOMAIN              (. cloud->domain = t->val; .)
+    | ATTR_PORT                (. cloud->port = t->val; .)
+    | ATTR_PATH                (. cloud->path = t->val; .)
+    | ATTR_REGISTER_PROCEDURE  (. cloud->registerProcedure = t->val; .)
+    | ATTR_PROTOCOL            (. cloud->protocol = t->val; .)
+    } END_CLOUD
+.
+
+Image<.ImageClass* &image.> = (. image = new ImageClass(); .)
+    IMAGE { ImageProperty<image> } END_IMAGE.
+
+ImageProperty<ImageClass *image>  (. char* value; .) =
+    Url<.value.>      (. image->url = value; .)
+    | Title<.value.>  (. image->title = value; .)
+    | Link<.value.>   (. image->link = value; .)
+    | Width<.value.>  (. image->width = value; .)
+    | Height<.value.> (. image->height = value; .)
+.
+
+TextInput<.TextInputClass* &textInput.> = (. textInput = new TextInputClass(); .)
+    TEXT_INPUT { TextInputProperty<textInput> } END_TEXT_INPUT.
+
+TextInputProperty<TextInputClass* &textInput> (. char* value; .) =
+    Title<.value.>         (. textInput->title = value; .)
+    | Description<.value.> (. textInput->description = value; .)
+    | Name<.value.>        (. textInput->name = value; .)
+    | Link<.value.>        (. textInput->link = value; .)
+.
+
+Item<.ItemClass* &item.> = (. item = new ItemClass(); .)
+    ITEM { ItemProperty<item> } END_ITEM.
+
+ItemProperty<ItemClass *item> (. char* value; ImageClass *image; .) =
+    Title<.value.>          (. item->title = value; .)
+    | Link<.value.>         (. item->link = value; .)
+    | Description<.value.>  (. item->description = value; .)
+    | Author<.value.>       (. item->author = value; .)
+    | Category<.value.>     (. item->category = value; .)
+    | Comments<.value.>     (. item->comments = value; .)
+    | Enclosure<.value.>    (. item->enclosure = value; .)
+    | Guid<.value.>         (. item->guid = value; .)
+    | PubDate<.value.>      (. item->pubdate = value; .)
+    | Source<.value.>       (. item->source = value; .)
+    | Image<.image.>        (. item->image = image; .)
+.
+
+
+Title<.char* &value.> = TITLE TEXT (. value = strdup(t->val); .) END_TITLE.
+
+Link<.char* &value.> = LINK TEXT (. value = strdup(t->val); .) END_LINK .
+
+Description<.char* &value.> = DESCRIPTION TEXT (. value = strdup(t->val); .) END_DESCRIPTION .
+
+Language<.char* &value.> = LANGUAGE TEXT (. value = strdup(t->val); .) END_LANGUAGE.
+
+Copyright<.char* &value.> = COPYRIGHT TEXT (. value = strdup(t->val); .) END_COPYRIGHT.
+
+ManagingEditor<.char* &value.> = MANAGING_EDITOR TEXT (. value = strdup(t->val); .) END_MANAGING_EDITOR.
+
+WebMaster<.char* &value.> = WEB_MASTER TEXT (. value = strdup(t->val); .) END_WEB_MASTER.
+
+PubDate<.char* &value.> = PUB_DATE TEXT (. value = strdup(t->val); .) END_PUB_DATE.
+
+LastBuildDate<.char* &value.> = LAST_BUILD_DATE TEXT (. value = strdup(t->val); .) END_LAST_BUILD_DATE.
+
+Category<.char* &value.> = CATEGORY TEXT (. value = strdup(t->val); .) END_CATEGORY.
+
+Generator<.char* &value.> = GENERATOR TEXT (. value = strdup(t->val); .) END_GENERATOR.
+
+Docs<.char* &value.> = DOCS TEXT (. value = strdup(t->val); .) END_DOCS.
+
+Ttl<.char* &value.> = TTL TEXT (. value = strdup(t->val); .) END_TTL.
+
+Url<.char* &value.> = URL TEXT (. value = strdup(t->val); .) END_URL.
+
+Width<.char* &value.> = WIDTH TEXT (. value = strdup(t->val); .) END_WIDTH.
+
+Height<.char* &value.> = HEIGHT TEXT (. value = strdup(t->val); .) END_HEIGHT.
+
+Rating<.char* &value.> = RATING TEXT (. value = strdup(t->val); .) END_RATING.
+
+Name<.char* &value.> = NAME TEXT (. value = strdup(t->val); .) END_NAME.
+
+SkipHours<.char* &value.> = SKIP_HOURS TEXT (. value = strdup(t->val); .) END_SKIP_HOURS.
+
+SkipDays<.char* &value.> = SKIP_DAYS TEXT (. value = strdup(t->val); .) END_SKIP_DAYS.
+
+Author<.char* &value.> = AUTHOR TEXT (. value = strdup(t->val); .) END_AUTHOR.
+
+Comments<.char* &value.> = COMMENTS TEXT (. value = strdup(t->val); .) END_COMMENTS.
+
+Enclosure<.char* &value.> = ENCLOSURE TEXT (. value = strdup(t->val); .) END_ENCLOSURE.
+
+Guid<.char* &value.> = GUID TEXT (. value = strdup(t->val); .) END_GUID.
+
+Source<.char* &value.> = SOURCE TEXT (. value = strdup(t->val); .) END_SOURCE.
+
+END Rss.

@@ -1,0 +1,12 @@
+# -*- python -*-
+# Author: Charles Wang <charlesw123456@gmail.com>
+# License: GPLv2
+
+import os.path
+
+SConscript(os.path.join('CExpr', 'SConscript'))
+SConscript(os.path.join('Kconfig', 'SConscript'))
+SConscript(os.path.join('Json', 'SConscript'))
+SConscript(os.path.join('patch', 'SConscript'))
+SConscript(os.path.join('pgn', 'SConscript'))
+SConscript(os.path.join('rss', 'SConscript'))

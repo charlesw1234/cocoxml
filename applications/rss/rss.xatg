@@ -1,0 +1,228 @@
+SECTION license
+/*-------------------------------------------------------------------------
+ rss.xatg -- RSS(Really Simple Syndication) Grammer
+ Copyright (c) 2008 Charles Wang <charlesw123456@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it 
+ under the terms of the GNU General Public License as published by the 
+ Free Software Foundation; either version 2, or (at your option) any 
+ later version.
+
+ This program is distributed in the hope that it will be useful, but 
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+ for more details.
+
+ You should have received a copy of the GNU General Public License along 
+ with this program; if not, write to the Free Software Foundation, Inc., 
+ 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+-------------------------------------------------------------------------*/
+END.
+
+/*-------------------------------------------------------------------------
+ compile with:
+   Coco rss.xatg
+-------------------------------------------------------------------------*/
+
+SCHEME cxml Rss
+
+SECTION hIncludes
+#ifndef  COCO_RSSDATA_H
+#include  "RssData.h"
+#endif
+END.
+
+SECTION cIncludes
+END.
+
+COMPILER Rss
+
+MEMBERS
+    CcRss_t rss;
+
+CONSTRUCTOR
+    if (!CcRss(&self->rss)) return FALSE;
+
+DESTRUCTOR
+    CcRss_Destruct(&self->rss);
+
+/*-------------------------------------------------------------------------*/
+OPTIONS TEXT
+
+TAGS
+	RSS = "rss"
+	CHANNEL = "channel"
+	ITEM = "item"
+	TITLE = "title"
+	LINK = "link"
+	DESCRIPTION = "description"
+	LANGUAGE = "language"
+	COPYRIGHT = "copyright"
+	MANAGING_EDITOR = "managingEditor"
+	WEB_MASTER = "webMaster"
+	PUB_DATE = "pubDate"
+	LAST_BUILD_DATE = "lastBuildDate"
+	CATEGORY = "category"
+	GENERATOR = "generator"
+	DOCS = "docs"
+	CLOUD = "cloud"
+	TTL = "ttl"
+	IMAGE = "image"
+	RATING = "rating"
+	TEXT_INPUT = "textInput"
+	NAME = "name"
+	SKIP_HOURS = "skipHours"
+	SKIP_DAYS = "skipDays"
+	URL = "url"
+	WIDTH = "width"
+	HEIGHT = "height"
+	AUTHOR = "author"
+	COMMENTS = "comments"
+	ENCLOSURE = "enclosure"
+	GUID = "guid"
+	SOURCE = "source"
+
+ATTRS
+	ATTR_DOMAIN = "domain"
+	ATTR_PORT = "port"
+	ATTR_PATH = "path"
+	ATTR_REGISTER_PROCEDURE = "registerProcedure"
+	ATTR_PROTOCOL = "protocol"
+
+/*-------------------------------------------------------------------------*/
+PRODUCTIONS
+
+Rss = (. CcChannel_t * channel; .)
+	RSS { Channel<&channel> (. CcRss_AddChannel(&self->rss, channel); .)
+	} END_RSS.
+
+Channel<CcChannel_t ** channel> = (. *channel = CcChannel(); .)
+	CHANNEL { ChannelProperty<*channel> } END_CHANNEL.
+
+ChannelProperty<CcChannel_t * channel>  (. char * value;
+			                   CcCloud_t * cloud;
+				           CcImage_t * image;
+				           CcTextInput_t * textInput;
+				           CcItem_t * item; .) =
+	Title<&value>            (. channel->title = value; .)
+	| Link<&value>           (. channel->link = value; .)
+	| Description<&value>    (. channel->description = value; .)
+	| Language<&value>       (. channel->language = value; .)
+	| Copyright<&value>      (. channel->copyright = value; .)
+	| ManagingEditor<&value> (. channel->managingEditor = value; .)
+	| WebMaster<&value>      (. channel->webMaster = value; .)
+	| PubDate<&value>        (. channel->pubDate = value; .)
+	| LastBuildDate<&value>  (. channel->lastBuildDate = value; .)
+	| Category<&value>       (. channel->category = value; .)
+	| Generator<&value>      (. channel->generator = value; .)
+	| Docs<&value>           (. channel->docs = value; .)
+	| Cloud<&cloud>          (. channel->cloud = cloud; .)
+	| Ttl<&value>            (. channel->ttl = value; .)
+	| Image<&image>          (. channel->image = image; .)
+	| Rating<&value>         (. channel->rating = value; .)
+	| TextInput<&textInput>  (. channel->textInput = textInput; .)
+	| SkipHours<&value>      (. channel->skipHours = value; .)
+	| SkipDays<&value>       (. channel->skipDays = value; .)
+        | Item<&item>            (. CcChannel_AddItem(channel, item); .)
+.
+
+Cloud<CcCloud_t ** cloud> = (. *cloud = CcCloud(); .)
+	CLOUD
+	{ ATTR_DOMAIN              (. (*cloud)->domain = CcStrdup(self->t->val); .)
+	| ATTR_PORT                (. (*cloud)->port = CcStrdup(self->t->val); .)
+	| ATTR_PATH                (. (*cloud)->path = CcStrdup(self->t->val); .)
+	| ATTR_REGISTER_PROCEDURE  (. (*cloud)->registerProcedure = CcStrdup(self->t->val); .)
+	| ATTR_PROTOCOL            (. (*cloud)->protocol = CcStrdup(self->t->val); .)
+	} END_CLOUD
+.
+
+Image<CcImage_t ** image> = (. *image = CcImage(); .)
+	IMAGE { ImageProperty<*image> } END_IMAGE.
+
+ImageProperty<CcImage_t * image>  (. char * value; .) =
+	Url<&value>      (. image->url = value; .)
+	| Title<&value>  (. image->title = value; .)
+	| Link<&value>   (. image->link = value; .)
+	| Width<&value>  (. image->width = value; .)
+	| Height<&value> (. image->height = value; .)
+.
+
+TextInput<CcTextInput_t ** textInput> = (. *textInput = CcTextInput(); .)
+	TEXT_INPUT { TextInputProperty<*textInput> } END_TEXT_INPUT.
+
+TextInputProperty<CcTextInput_t * textInput> (. char * value; .) =
+	Title<&value>         (. textInput->title = value; .)
+	| Description<&value> (. textInput->description = value; .)
+	| Name<&value>        (. textInput->name = value; .)
+	| Link<&value>        (. textInput->link = value; .)
+.
+
+Item<CcItem_t ** item> = (. *item = CcItem(); .)
+	ITEM { ItemProperty<*item> } END_ITEM.
+
+ItemProperty<CcItem_t * item> (. char * value; CcImage_t * image; .) =
+	Title<&value>          (. item->title = value; .)
+	| Link<&value>         (. item->link = value; .)
+	| Description<&value>  (. item->description = value; .)
+	| Author<&value>       (. item->author = value; .)
+	| Category<&value>     (. item->category = value; .)
+	| Comments<&value>     (. item->comments = value; .)
+	| Enclosure<&value>    (. item->enclosure = value; .)
+	| Guid<&value>         (. item->guid = value; .)
+	| PubDate<&value>      (. item->pubdate = value; .)
+	| Source<&value>       (. item->source = value; .)
+	| Image<&image>        (. item->image = image; .)
+.
+
+
+Title<char ** value> = TITLE TEXT (. *value = CcStrdup(self->t->val); .) END_TITLE.
+
+Link<char ** value> = LINK TEXT (. *value = CcStrdup(self->t->val); .) END_LINK .
+
+Description<char ** value> = DESCRIPTION TEXT (. *value = CcStrdup(self->t->val); .) END_DESCRIPTION .
+
+Language<char ** value> = LANGUAGE TEXT (. *value = CcStrdup(self->t->val); .) END_LANGUAGE.
+
+Copyright<char ** value> = COPYRIGHT TEXT (. *value = CcStrdup(self->t->val); .) END_COPYRIGHT.
+
+ManagingEditor<char ** value> = MANAGING_EDITOR TEXT (. *value = CcStrdup(self->t->val); .) END_MANAGING_EDITOR.
+
+WebMaster<char ** value> = WEB_MASTER TEXT (. *value = CcStrdup(self->t->val); .) END_WEB_MASTER.
+
+PubDate<char ** value> = PUB_DATE TEXT (. *value = CcStrdup(self->t->val); .) END_PUB_DATE.
+
+LastBuildDate<char ** value> = LAST_BUILD_DATE TEXT (. *value = CcStrdup(self->t->val); .) END_LAST_BUILD_DATE.
+
+Category<char ** value> = CATEGORY TEXT (. *value = CcStrdup(self->t->val); .) END_CATEGORY.
+
+Generator<char ** value> = GENERATOR TEXT (. *value = CcStrdup(self->t->val); .) END_GENERATOR.
+
+Docs<char ** value> = DOCS TEXT (. *value = CcStrdup(self->t->val); .) END_DOCS.
+
+Ttl<char ** value> = TTL TEXT (. *value = CcStrdup(self->t->val); .) END_TTL.
+
+Url<char ** value> = URL TEXT (. *value = CcStrdup(self->t->val); .) END_URL.
+
+Width<char ** value> = WIDTH TEXT (. *value = CcStrdup(self->t->val); .) END_WIDTH.
+
+Height<char ** value> = HEIGHT TEXT (. *value = CcStrdup(self->t->val); .) END_HEIGHT.
+
+Rating<char ** value> = RATING TEXT (. *value = CcStrdup(self->t->val); .) END_RATING.
+
+Name<char ** value> = NAME TEXT (. *value = CcStrdup(self->t->val); .) END_NAME.
+
+SkipHours<char ** value> = SKIP_HOURS TEXT (. *value = CcStrdup(self->t->val); .) END_SKIP_HOURS.
+
+SkipDays<char ** value> = SKIP_DAYS TEXT (. *value = CcStrdup(self->t->val); .) END_SKIP_DAYS.
+
+Author<char ** value> = AUTHOR TEXT (. *value = CcStrdup(self->t->val); .) END_AUTHOR.
+
+Comments<char ** value> = COMMENTS TEXT (. *value = CcStrdup(self->t->val); .) END_COMMENTS.
+
+Enclosure<char ** value> = ENCLOSURE TEXT (. *value = CcStrdup(self->t->val); .) END_ENCLOSURE.
+
+Guid<char ** value> = GUID TEXT (. *value = CcStrdup(self->t->val); .) END_GUID.
+
+Source<char ** value> = SOURCE TEXT (. *value = CcStrdup(self->t->val); .) END_SOURCE.
+
+END Rss.
