@@ -18,7 +18,7 @@ static int KcScanner_Kind(void * scanner, CcsScanInput_t * input);
 
 static const CcsSI_Info_t Scanner_Info = {
     /*---- declarations ----*/
-    24, /* additionalSpace */
+    48, /* additionalSpace */
     0, /* eofSym */
     47, /* maxT */
     47, /* noSym */

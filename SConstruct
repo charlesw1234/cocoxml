@@ -9,7 +9,8 @@ topsrc = os.getcwd()
 cpppath = [topsrc] + map(lambda subdir: os.path.join(topsrc, subdir),
                          ['core', 'algorithm', 'schemes'])
 
-env = CocoEnvironment(CPPPATH = cpppath, config_h = 'acconfig.h')
+env = CocoEnvironment(CPPPATH = cpppath, config_h = 'acconfig.h',
+                      PROGSUFFIX = '.exec')
 
 Export('env')
 

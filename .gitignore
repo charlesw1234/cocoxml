@@ -1,0 +1,11 @@
+*~
+*.pyc
+*.o
+*.a
+*.exec
+.sconsign.dblite
+.sconf_temp
+acconfig.h
+config.h
+config.log
+config.status
