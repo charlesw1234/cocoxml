@@ -42,11 +42,35 @@ CHARACTERS
 	cr	= '\r'.
 	lf	= '\n'.
 	tab	= '\t'.
+	stringch = ANY - '"' - '\\' - cr - lf.
+	printable = '\x20' .. '\x7e'.
+TOKENS
+	ident	= letter { letter | digit }.
+	number	= digit { digit } [ "." digit { digit } ].
+	string	= "'" { stringch | "\\" printable } "'".
+
+COMMENTS FROM "{" TO "}"
 
 IGNORE	cr + lf + tab
 
 PRODUCTIONS
 
-TDX = .
+TDX = { Statement ';' }.
+
+Statement = Assignment | Output | Expression .
+
+Assignment = ident ":=" Expression .
+Output = ident ":" Expression .
+
+Expression = expr1 [ "," ident ] .
+
+expr1 = expr2 { "or" expr2 } .
+expr2 = expr3 { "and" expr3 } .
+expr3 = expr4 { ("=" | "!=") expr4 } .
+expr4 = expr5 { (">" | ">=" | "<" | "<=") expr5 } .
+expr5 = expr6 { ("+" | "-") expr6 } .
+expr6 = expr7 { ("*" | "/") expr7 } .
+expr7 = number | ident | string | "(" expr1 ")" | call .
+call = ident "(" [ expr1 { "," expr1 } ] ")" .
 
 END TDX.

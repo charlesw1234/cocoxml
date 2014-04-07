@@ -33,8 +33,9 @@ Author: Charles Wang <charlesw123456@gmail.com>
 EXTC_BEGIN
 
 /*---- defines ----*/
-#define TDXScanner_MAX_KEYWORD_LEN 0
+#define TDXScanner_MAX_KEYWORD_LEN 3
 #define TDXScanner_CASE_SENSITIVE
+#define TDXScanner_KEYWORD_USED
 /*---- enable ----*/
 
 typedef struct TDXScanner_s TDXScanner_t;
