@@ -1,0 +1,16 @@
+A1:=MA(C, 30);
+A2:=MA(C, 60);
+A3:=MA(C, 90);
+A4:=MA(C, 240);
+B1:=ABS(A1/A2-1);
+B2:=ABS(A2/A3-1);
+B3:=ABS(A1/A3-1);
+C1:=C/REF(C,1);
+C3:=C1-1;
+C4:=(A1+A2+A3)/3;
+C5:=IF(C > (C4 * 1.04) AND C < (C4 * 1.15), 1, 0);
+D1:=A4 / REF(A4, 20);
+D2:=ABS(D1 - 1);
+D3:=IF(D2 < 0.05, 1, 0);
+C2:= IF((B1 < 0.05 AND B2 < 0.05 AND B3 < 0.05 AND C3 > 0.05 AND C5 = 1 AND D3 = 1 AND C4 > A4), 1, 0);
+first:C2;
