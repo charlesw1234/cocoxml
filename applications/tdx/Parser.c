@@ -83,10 +83,6 @@ TDXParser_WeakSeparator(TDXParser_t * self, int n, int syFol, int repFol)
 
 /*---- ProductionsHeader ----*/
 static void TDXParser_TDX(TDXParser_t * self);
-static void TDXParser_Statement(TDXParser_t * self);
-static void TDXParser_Assignment(TDXParser_t * self);
-static void TDXParser_Output(TDXParser_t * self);
-static void TDXParser_Expression(TDXParser_t * self);
 static void TDXParser_expr1(TDXParser_t * self);
 static void TDXParser_expr2(TDXParser_t * self);
 static void TDXParser_expr3(TDXParser_t * self);
@@ -94,7 +90,7 @@ static void TDXParser_expr4(TDXParser_t * self);
 static void TDXParser_expr5(TDXParser_t * self);
 static void TDXParser_expr6(TDXParser_t * self);
 static void TDXParser_expr7(TDXParser_t * self);
-static void TDXParser_call(TDXParser_t * self);
+static void TDXParser_ident_expr(TDXParser_t * self);
 /*---- enable ----*/
 
 void
@@ -133,7 +129,7 @@ TDXParser_Init(TDXParser_t * self)
 {
     self->t = self->la = NULL;
     /*---- constructor ----*/
-    self->maxT = 22;
+    self->maxT = 26;
     
     /*---- enable ----*/
     return TRUE;
@@ -187,46 +183,12 @@ static void
 TDXParser_TDX(TDXParser_t * self)
 {
     while (TDXParser_StartOf(self, 1)) {
-	TDXParser_Statement(self);
-	TDXParser_Expect(self, 4);
-    }
-}
-
-static void
-TDXParser_Statement(TDXParser_t * self)
-{
-    if (self->la->kind == 1) {
-	TDXParser_Assignment(self);
-    } else if (self->la->kind == 1) {
-	TDXParser_Output(self);
-    } else if (TDXParser_StartOf(self, 1)) {
-	TDXParser_Expression(self);
-    } else TDXParser_SynErr(self, 23);
-}
-
-static void
-TDXParser_Assignment(TDXParser_t * self)
-{
-    TDXParser_Expect(self, 1);
-    TDXParser_Expect(self, 5);
-    TDXParser_Expression(self);
-}
-
-static void
-TDXParser_Output(TDXParser_t * self)
-{
-    TDXParser_Expect(self, 1);
-    TDXParser_Expect(self, 6);
-    TDXParser_Expression(self);
-}
-
-static void
-TDXParser_Expression(TDXParser_t * self)
-{
-    TDXParser_expr1(self);
-    if (self->la->kind == 7) {
-	TDXParser_Get(self);
-	TDXParser_Expect(self, 1);
+	TDXParser_expr1(self);
+	while (self->la->kind == 4) {
+	    TDXParser_Get(self);
+	    TDXParser_Expect(self, 1);
+	}
+	TDXParser_Expect(self, 5);
     }
 }
 
@@ -234,8 +196,14 @@ static void
 TDXParser_expr1(TDXParser_t * self)
 {
     TDXParser_expr2(self);
-    while (self->la->kind == 8) {
-	TDXParser_Get(self);
+    while (self->la->kind == 6 || self->la->kind == 7 || self->la->kind == 8) {
+	if (self->la->kind == 6) {
+	    TDXParser_Get(self);
+	} else if (self->la->kind == 7) {
+	    TDXParser_Get(self);
+	} else {
+	    TDXParser_Get(self);
+	}
 	TDXParser_expr2(self);
     }
 }
@@ -244,8 +212,14 @@ static void
 TDXParser_expr2(TDXParser_t * self)
 {
     TDXParser_expr3(self);
-    while (self->la->kind == 9) {
-	TDXParser_Get(self);
+    while (self->la->kind == 9 || self->la->kind == 10 || self->la->kind == 11) {
+	if (self->la->kind == 9) {
+	    TDXParser_Get(self);
+	} else if (self->la->kind == 10) {
+	    TDXParser_Get(self);
+	} else {
+	    TDXParser_Get(self);
+	}
 	TDXParser_expr3(self);
     }
 }
@@ -254,8 +228,8 @@ static void
 TDXParser_expr3(TDXParser_t * self)
 {
     TDXParser_expr4(self);
-    while (self->la->kind == 10 || self->la->kind == 11) {
-	if (self->la->kind == 10) {
+    while (self->la->kind == 12 || self->la->kind == 13) {
+	if (self->la->kind == 12) {
 	    TDXParser_Get(self);
 	} else {
 	    TDXParser_Get(self);
@@ -269,11 +243,11 @@ TDXParser_expr4(TDXParser_t * self)
 {
     TDXParser_expr5(self);
     while (TDXParser_StartOf(self, 2)) {
-	if (self->la->kind == 12) {
+	if (self->la->kind == 14) {
 	    TDXParser_Get(self);
-	} else if (self->la->kind == 13) {
+	} else if (self->la->kind == 15) {
 	    TDXParser_Get(self);
-	} else if (self->la->kind == 14) {
+	} else if (self->la->kind == 16) {
 	    TDXParser_Get(self);
 	} else {
 	    TDXParser_Get(self);
@@ -286,8 +260,8 @@ static void
 TDXParser_expr5(TDXParser_t * self)
 {
     TDXParser_expr6(self);
-    while (self->la->kind == 16 || self->la->kind == 17) {
-	if (self->la->kind == 16) {
+    while (self->la->kind == 18 || self->la->kind == 19) {
+	if (self->la->kind == 18) {
 	    TDXParser_Get(self);
 	} else {
 	    TDXParser_Get(self);
@@ -300,8 +274,8 @@ static void
 TDXParser_expr6(TDXParser_t * self)
 {
     TDXParser_expr7(self);
-    while (self->la->kind == 18 || self->la->kind == 19) {
-	if (self->la->kind == 18) {
+    while (self->la->kind == 20 || self->la->kind == 21) {
+	if (self->la->kind == 20) {
 	    TDXParser_Get(self);
 	} else {
 	    TDXParser_Get(self);
@@ -316,31 +290,39 @@ TDXParser_expr7(TDXParser_t * self)
     if (self->la->kind == 2) {
 	TDXParser_Get(self);
     } else if (self->la->kind == 1) {
-	TDXParser_Get(self);
+	TDXParser_ident_expr(self);
     } else if (self->la->kind == 3) {
 	TDXParser_Get(self);
-    } else if (self->la->kind == 20) {
+    } else if (self->la->kind == 22) {
 	TDXParser_Get(self);
 	TDXParser_expr1(self);
-	TDXParser_Expect(self, 21);
-    } else if (self->la->kind == 1) {
-	TDXParser_call(self);
-    } else TDXParser_SynErr(self, 24);
+	TDXParser_Expect(self, 23);
+    } else TDXParser_SynErr(self, 27);
 }
 
 static void
-TDXParser_call(TDXParser_t * self)
+TDXParser_ident_expr(TDXParser_t * self)
 {
     TDXParser_Expect(self, 1);
-    TDXParser_Expect(self, 20);
-    if (TDXParser_StartOf(self, 1)) {
-	TDXParser_expr1(self);
-	while (self->la->kind == 7) {
+    if (self->la->kind == 22 || self->la->kind == 24 || self->la->kind == 25) {
+	if (self->la->kind == 22) {
+	    TDXParser_Get(self);
+	    if (TDXParser_StartOf(self, 1)) {
+		TDXParser_expr1(self);
+		while (self->la->kind == 4) {
+		    TDXParser_Get(self);
+		    TDXParser_expr1(self);
+		}
+	    }
+	    TDXParser_Expect(self, 23);
+	} else if (self->la->kind == 24) {
+	    TDXParser_Get(self);
+	    TDXParser_expr1(self);
+	} else {
 	    TDXParser_Get(self);
 	    TDXParser_expr1(self);
 	}
     }
-    TDXParser_Expect(self, 21);
 }
 
 /*---- enable ----*/
@@ -355,27 +337,30 @@ TDXParser_SynErr(TDXParser_t * self, int n)
     case 1: s = "\"" "ident" "\" expected"; break;
     case 2: s = "\"" "number" "\" expected"; break;
     case 3: s = "\"" "string" "\" expected"; break;
-    case 4: s = "\"" ";" "\" expected"; break;
-    case 5: s = "\"" ":=" "\" expected"; break;
-    case 6: s = "\"" ":" "\" expected"; break;
-    case 7: s = "\"" "," "\" expected"; break;
+    case 4: s = "\"" "," "\" expected"; break;
+    case 5: s = "\"" ";" "\" expected"; break;
+    case 6: s = "\"" "||" "\" expected"; break;
+    case 7: s = "\"" "OR" "\" expected"; break;
     case 8: s = "\"" "or" "\" expected"; break;
-    case 9: s = "\"" "and" "\" expected"; break;
-    case 10: s = "\"" "=" "\" expected"; break;
-    case 11: s = "\"" "!=" "\" expected"; break;
-    case 12: s = "\"" ">" "\" expected"; break;
-    case 13: s = "\"" ">=" "\" expected"; break;
-    case 14: s = "\"" "<" "\" expected"; break;
-    case 15: s = "\"" "<=" "\" expected"; break;
-    case 16: s = "\"" "+" "\" expected"; break;
-    case 17: s = "\"" "-" "\" expected"; break;
-    case 18: s = "\"" "*" "\" expected"; break;
-    case 19: s = "\"" "/" "\" expected"; break;
-    case 20: s = "\"" "(" "\" expected"; break;
-    case 21: s = "\"" ")" "\" expected"; break;
-    case 22: s = "\"" "???" "\" expected"; break;
-    case 23: s = "this symbol not expected in \"" "Statement" "\""; break;
-    case 24: s = "this symbol not expected in \"" "expr7" "\""; break;
+    case 9: s = "\"" "&&" "\" expected"; break;
+    case 10: s = "\"" "AND" "\" expected"; break;
+    case 11: s = "\"" "and" "\" expected"; break;
+    case 12: s = "\"" "=" "\" expected"; break;
+    case 13: s = "\"" "!=" "\" expected"; break;
+    case 14: s = "\"" ">" "\" expected"; break;
+    case 15: s = "\"" ">=" "\" expected"; break;
+    case 16: s = "\"" "<" "\" expected"; break;
+    case 17: s = "\"" "<=" "\" expected"; break;
+    case 18: s = "\"" "+" "\" expected"; break;
+    case 19: s = "\"" "-" "\" expected"; break;
+    case 20: s = "\"" "*" "\" expected"; break;
+    case 21: s = "\"" "/" "\" expected"; break;
+    case 22: s = "\"" "(" "\" expected"; break;
+    case 23: s = "\"" ")" "\" expected"; break;
+    case 24: s = "\"" ":=" "\" expected"; break;
+    case 25: s = "\"" ":" "\" expected"; break;
+    case 26: s = "\"" "???" "\" expected"; break;
+    case 27: s = "this symbol not expected in \"" "expr7" "\""; break;
     /*---- enable ----*/
     default:
 	snprintf(format, sizeof(format), "error %d", n);
@@ -387,9 +372,9 @@ TDXParser_SynErr(TDXParser_t * self, int n)
 
 static const char * set[] = {
     /*---- InitSet ----*/
-    /*    5    0    5    0   */
-    "*.......................", /* 0 */
-    ".***................*...", /* 1 */
-    "............****........"  /* 2 */
+    /*    5    0    5    0    5  */
+    "*...........................", /* 0 */
+    ".***..................*.....", /* 1 */
+    "..............****.........."  /* 2 */
     /*---- enable ----*/
 };

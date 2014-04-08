@@ -55,22 +55,17 @@ IGNORE	cr + lf + tab
 
 PRODUCTIONS
 
-TDX = { Statement ';' }.
+TDX = { expr1 { ',' ident } ';' }.
 
-Statement = Assignment | Output | Expression .
-
-Assignment = ident ":=" Expression .
-Output = ident ":" Expression .
-
-Expression = expr1 [ "," ident ] .
-
-expr1 = expr2 { "or" expr2 } .
-expr2 = expr3 { "and" expr3 } .
+expr1 = expr2 { ("||" | "OR" | "or") expr2 } .
+expr2 = expr3 { ("&&" | "AND" | "and") expr3 } .
 expr3 = expr4 { ("=" | "!=") expr4 } .
 expr4 = expr5 { (">" | ">=" | "<" | "<=") expr5 } .
 expr5 = expr6 { ("+" | "-") expr6 } .
 expr6 = expr7 { ("*" | "/") expr7 } .
-expr7 = number | ident | string | "(" expr1 ")" | call .
-call = ident "(" [ expr1 { "," expr1 } ] ")" .
+expr7 = number | ident_expr | string | "(" expr1 ")" .
+ident_expr = ident [ ( "(" [ expr1 { "," expr1 } ] ")" )
+	     	   | ( ":=" expr1 )
+		   | ( ":" expr1 ) ] .
 
 END TDX.
